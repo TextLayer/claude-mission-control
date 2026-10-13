@@ -31,8 +31,8 @@ import { StatCard } from './ui'
 /** Colors for each storage category — soft, distinct, calming */
 const STORAGE_COLORS = [
   { fill: '#D97757', label: 'JSONL Sessions' }, // Claude Code terracotta — their data
-  { fill: '#f59e0b', label: 'SQLite Database' }, // amber — this app's DB
-  { fill: '#10b981', label: 'Search Index' }, // emerald — this app's index
+  { fill: 'var(--color-amber-500)', label: 'SQLite Database' }, // amber — this app's DB
+  { fill: 'var(--color-emerald-500)', label: 'Search Index' }, // emerald — this app's index
 ] as const
 
 /**

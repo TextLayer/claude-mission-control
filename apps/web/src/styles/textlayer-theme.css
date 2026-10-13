@@ -1,0 +1,378 @@
+/*
+ * TextLayer brand layer
+ *
+ * Re-skins the app in the textlayer.ai look without touching component code.
+ * Every Tailwind colour, radius and shadow utility resolves through a theme
+ * variable, so overriding the variables here restyles the ~8,000 class uses
+ * across apps/web and packages/shared in one place. Keep brand changes in
+ * this file (plus the few hardcoded values in index.css / dockview-theme.css)
+ * so upstream merges stay conflict-free.
+ *
+ * Source of truth: textlayer.ai's own CSS custom properties, as recorded in
+ * the textlayer-storyteller plugin's brand-system.md, plus the full ramps
+ * read from the live site (--gray-*, --cobalt-*, --emerald-*, ...).
+ *
+ *   Light = the site's page:   white canvas, warm-grey hairlines, ink text.
+ *   Dark  = the site's ink CTA panel: #0B0D10 canvas, #131210 surface.
+ *   Cobalt (#0077EC) is the only accent; the status hues are the site's
+ *   emerald / amber / coral / violet / cyan.
+ *   Flat and square: hairlines rather than shadows, 2–4px corners.
+ */
+
+/* ─── Neutrals: the site's warm greys ───
+   Routed through the shared --cv-* contract (packages/shared/src/styles/
+   conversation-theme.css), so the share viewer could adopt it too. The scale
+   is mode-independent: light mode reads the top of it, dark mode the bottom.
+     50–300  light surfaces & hairlines: 50 is the site's cell fill (#FDFCFB),
+             so panels read as white; #E6E4E1 is the site's grid line
+     400–600 secondary text (#737373 / #4C4A48 are the site's muted inks)
+     700     dark-mode hairline (#343230)
+     800–950 dark surfaces; 950 is ink (#0B0D10), the app's dark canvas */
+:root {
+  --cv-gray-50: #fdfcfb;
+  --cv-gray-100: #f5f3f1;
+  --cv-gray-200: #e6e4e1;
+  --cv-gray-300: #dad7d4;
+  --cv-gray-400: #a19e9a;
+  --cv-gray-500: #737373;
+  --cv-gray-600: #4c4a48;
+  --cv-gray-700: #343230;
+  --cv-gray-800: #211f1d;
+  --cv-gray-900: #131210;
+  --cv-gray-950: #0b0d10;
+}
+
+@theme {
+  /* The other neutral families follow the same warm-grey scale. */
+  --color-zinc-50: var(--cv-gray-50);
+  --color-zinc-100: var(--cv-gray-100);
+  --color-zinc-200: var(--cv-gray-200);
+  --color-zinc-300: var(--cv-gray-300);
+  --color-zinc-400: var(--cv-gray-400);
+  --color-zinc-500: var(--cv-gray-500);
+  --color-zinc-600: var(--cv-gray-600);
+  --color-zinc-700: var(--cv-gray-700);
+  --color-zinc-800: var(--cv-gray-800);
+  --color-zinc-900: var(--cv-gray-900);
+  --color-zinc-950: var(--cv-gray-950);
+  --color-slate-50: var(--cv-gray-50);
+  --color-slate-100: var(--cv-gray-100);
+  --color-slate-200: var(--cv-gray-200);
+  --color-slate-300: var(--cv-gray-300);
+  --color-slate-400: var(--cv-gray-400);
+  --color-slate-500: var(--cv-gray-500);
+  --color-slate-600: var(--cv-gray-600);
+  --color-slate-700: var(--cv-gray-700);
+  --color-slate-800: var(--cv-gray-800);
+  --color-slate-900: var(--cv-gray-900);
+  --color-slate-950: var(--cv-gray-950);
+  --color-neutral-50: var(--cv-gray-50);
+  --color-neutral-100: var(--cv-gray-100);
+  --color-neutral-200: var(--cv-gray-200);
+  --color-neutral-300: var(--cv-gray-300);
+  --color-neutral-400: var(--cv-gray-400);
+  --color-neutral-500: var(--cv-gray-500);
+  --color-neutral-600: var(--cv-gray-600);
+  --color-neutral-700: var(--cv-gray-700);
+  --color-neutral-800: var(--cv-gray-800);
+  --color-neutral-900: var(--cv-gray-900);
+  --color-neutral-950: var(--cv-gray-950);
+  --color-stone-50: var(--cv-gray-50);
+  --color-stone-100: var(--cv-gray-100);
+  --color-stone-200: var(--cv-gray-200);
+  --color-stone-300: var(--cv-gray-300);
+  --color-stone-400: var(--cv-gray-400);
+  --color-stone-500: var(--cv-gray-500);
+  --color-stone-600: var(--cv-gray-600);
+  --color-stone-700: var(--cv-gray-700);
+  --color-stone-800: var(--cv-gray-800);
+  --color-stone-900: var(--cv-gray-900);
+  --color-stone-950: var(--cv-gray-950);
+  --color-black: #0b0d10;
+
+  /* ─── Accent and status hues ───
+     textlayer.ai has exactly six hues, so every Tailwind family collapses
+     onto one of them (blue/sky → cobalt; indigo/violet/purple/fuchsia →
+     violet; cyan/teal → cyan; amber/yellow/orange → amber; red/rose/pink →
+     coral; green/emerald/lime → emerald). Each ramp is anchored on the
+     site's own three tokens for that hue:
+       200 = site -100 tint   400 = site -200   500 = site -300
+     50/100 are near-white whispers of the hue (the site is ~84% white), so
+     tinted badges and panels read as white with a hint of colour.
+     600 is the lightest shade that clears 4.6:1 on white (small text) and
+     at least a visible step deeper than 500; 700–950 step down from it.
+     Generated in OKLCH and clamped to sRGB. */
+  /* cobalt — blue, sky */
+  --color-blue-50: #f7faff;
+  --color-blue-100: #ebf3ff;
+  --color-blue-200: #bcd3f2;
+  --color-blue-300: #98bdee;
+  --color-blue-400: #73a6e9;
+  --color-blue-500: #0077ec;
+  --color-blue-600: #0069d1;
+  --color-blue-700: #0056ad;
+  --color-blue-800: #00438b;
+  --color-blue-900: #03346c;
+  --color-blue-950: #0a2445;
+  --color-sky-50: var(--color-blue-50);
+  --color-sky-100: var(--color-blue-100);
+  --color-sky-200: var(--color-blue-200);
+  --color-sky-300: var(--color-blue-300);
+  --color-sky-400: var(--color-blue-400);
+  --color-sky-500: var(--color-blue-500);
+  --color-sky-600: var(--color-blue-600);
+  --color-sky-700: var(--color-blue-700);
+  --color-sky-800: var(--color-blue-800);
+  --color-sky-900: var(--color-blue-900);
+  --color-sky-950: var(--color-blue-950);
+  /* violet — violet, indigo, purple, fuchsia */
+  --color-violet-50: #fbf9ff;
+  --color-violet-100: #f4f0ff;
+  --color-violet-200: #d2c8e8;
+  --color-violet-300: #b8a7d9;
+  --color-violet-400: #9f87ca;
+  --color-violet-500: #7b47bf;
+  --color-violet-600: #6c3aaa;
+  --color-violet-700: #562a8c;
+  --color-violet-800: #411e6b;
+  --color-violet-900: #2f164e;
+  --color-violet-950: #291c3e;
+  --color-indigo-50: var(--color-violet-50);
+  --color-indigo-100: var(--color-violet-100);
+  --color-indigo-200: var(--color-violet-200);
+  --color-indigo-300: var(--color-violet-300);
+  --color-indigo-400: var(--color-violet-400);
+  --color-indigo-500: var(--color-violet-500);
+  --color-indigo-600: var(--color-violet-600);
+  --color-indigo-700: var(--color-violet-700);
+  --color-indigo-800: var(--color-violet-800);
+  --color-indigo-900: var(--color-violet-900);
+  --color-indigo-950: var(--color-violet-950);
+  --color-purple-50: var(--color-violet-50);
+  --color-purple-100: var(--color-violet-100);
+  --color-purple-200: var(--color-violet-200);
+  --color-purple-300: var(--color-violet-300);
+  --color-purple-400: var(--color-violet-400);
+  --color-purple-500: var(--color-violet-500);
+  --color-purple-600: var(--color-violet-600);
+  --color-purple-700: var(--color-violet-700);
+  --color-purple-800: var(--color-violet-800);
+  --color-purple-900: var(--color-violet-900);
+  --color-purple-950: var(--color-violet-950);
+  --color-fuchsia-50: var(--color-violet-50);
+  --color-fuchsia-100: var(--color-violet-100);
+  --color-fuchsia-200: var(--color-violet-200);
+  --color-fuchsia-300: var(--color-violet-300);
+  --color-fuchsia-400: var(--color-violet-400);
+  --color-fuchsia-500: var(--color-violet-500);
+  --color-fuchsia-600: var(--color-violet-600);
+  --color-fuchsia-700: var(--color-violet-700);
+  --color-fuchsia-800: var(--color-violet-800);
+  --color-fuchsia-900: var(--color-violet-900);
+  --color-fuchsia-950: var(--color-violet-950);
+  /* cyan — cyan, teal */
+  --color-cyan-50: #f5fcfd;
+  --color-cyan-100: #e7f5f9;
+  --color-cyan-200: #c8e8ee;
+  --color-cyan-300: #a1d7e3;
+  --color-cyan-400: #77c6d4;
+  --color-cyan-500: #00a5be;
+  --color-cyan-600: #007f93;
+  --color-cyan-700: #00697a;
+  --color-cyan-800: #005461;
+  --color-cyan-900: #00424d;
+  --color-cyan-950: #062930;
+  --color-teal-50: var(--color-cyan-50);
+  --color-teal-100: var(--color-cyan-100);
+  --color-teal-200: var(--color-cyan-200);
+  --color-teal-300: var(--color-cyan-300);
+  --color-teal-400: var(--color-cyan-400);
+  --color-teal-500: var(--color-cyan-500);
+  --color-teal-600: var(--color-cyan-600);
+  --color-teal-700: var(--color-cyan-700);
+  --color-teal-800: var(--color-cyan-800);
+  --color-teal-900: var(--color-cyan-900);
+  --color-teal-950: var(--color-cyan-950);
+  /* amber — amber, yellow, orange */
+  --color-amber-50: #fef9f5;
+  --color-amber-100: #faf1e7;
+  --color-amber-200: #f8e4cf;
+  --color-amber-300: #f1d1af;
+  --color-amber-400: #e9bf8e;
+  --color-amber-500: #dc932e;
+  --color-amber-600: #a36700;
+  --color-amber-700: #885500;
+  --color-amber-800: #6e4400;
+  --color-amber-900: #583603;
+  --color-amber-950: #331f05;
+  --color-yellow-50: var(--color-amber-50);
+  --color-yellow-100: var(--color-amber-100);
+  --color-yellow-200: var(--color-amber-200);
+  --color-yellow-300: var(--color-amber-300);
+  --color-yellow-400: var(--color-amber-400);
+  --color-yellow-500: var(--color-amber-500);
+  --color-yellow-600: var(--color-amber-600);
+  --color-yellow-700: var(--color-amber-700);
+  --color-yellow-800: var(--color-amber-800);
+  --color-yellow-900: var(--color-amber-900);
+  --color-yellow-950: var(--color-amber-950);
+  --color-orange-50: var(--color-amber-50);
+  --color-orange-100: var(--color-amber-100);
+  --color-orange-200: var(--color-amber-200);
+  --color-orange-300: var(--color-amber-300);
+  --color-orange-400: var(--color-amber-400);
+  --color-orange-500: var(--color-amber-500);
+  --color-orange-600: var(--color-amber-600);
+  --color-orange-700: var(--color-amber-700);
+  --color-orange-800: var(--color-amber-800);
+  --color-orange-900: var(--color-amber-900);
+  --color-orange-950: var(--color-amber-950);
+  /* coral — red, rose, pink */
+  --color-red-50: #fff8f8;
+  --color-red-100: #ffeeec;
+  --color-red-200: #fbd3cf;
+  --color-red-300: #f3b6b0;
+  --color-red-400: #ea9891;
+  --color-red-500: #da534f;
+  --color-red-600: #c54744;
+  --color-red-700: #a63936;
+  --color-red-800: #852f2d;
+  --color-red-900: #692825;
+  --color-red-950: #3c1715;
+  --color-rose-50: var(--color-red-50);
+  --color-rose-100: var(--color-red-100);
+  --color-rose-200: var(--color-red-200);
+  --color-rose-300: var(--color-red-300);
+  --color-rose-400: var(--color-red-400);
+  --color-rose-500: var(--color-red-500);
+  --color-rose-600: var(--color-red-600);
+  --color-rose-700: var(--color-red-700);
+  --color-rose-800: var(--color-red-800);
+  --color-rose-900: var(--color-red-900);
+  --color-rose-950: var(--color-red-950);
+  --color-pink-50: var(--color-red-50);
+  --color-pink-100: var(--color-red-100);
+  --color-pink-200: var(--color-red-200);
+  --color-pink-300: var(--color-red-300);
+  --color-pink-400: var(--color-red-400);
+  --color-pink-500: var(--color-red-500);
+  --color-pink-600: var(--color-red-600);
+  --color-pink-700: var(--color-red-700);
+  --color-pink-800: var(--color-red-800);
+  --color-pink-900: var(--color-red-900);
+  --color-pink-950: var(--color-red-950);
+  /* emerald — green, emerald, lime */
+  --color-green-50: #f7fcf7;
+  --color-green-100: #ebf6ed;
+  --color-green-200: #cbe2cf;
+  --color-green-300: #a9cdaf;
+  --color-green-400: #86b990;
+  --color-green-500: #319751;
+  --color-green-600: #238544;
+  --color-green-700: #176e36;
+  --color-green-800: #15572b;
+  --color-green-900: #154423;
+  --color-green-950: #102b17;
+  --color-emerald-50: var(--color-green-50);
+  --color-emerald-100: var(--color-green-100);
+  --color-emerald-200: var(--color-green-200);
+  --color-emerald-300: var(--color-green-300);
+  --color-emerald-400: var(--color-green-400);
+  --color-emerald-500: var(--color-green-500);
+  --color-emerald-600: var(--color-green-600);
+  --color-emerald-700: var(--color-green-700);
+  --color-emerald-800: var(--color-green-800);
+  --color-emerald-900: var(--color-green-900);
+  --color-emerald-950: var(--color-green-950);
+  --color-lime-50: var(--color-green-50);
+  --color-lime-100: var(--color-green-100);
+  --color-lime-200: var(--color-green-200);
+  --color-lime-300: var(--color-green-300);
+  --color-lime-400: var(--color-green-400);
+  --color-lime-500: var(--color-green-500);
+  --color-lime-600: var(--color-green-600);
+  --color-lime-700: var(--color-green-700);
+  --color-lime-800: var(--color-green-800);
+  --color-lime-900: var(--color-green-900);
+  --color-lime-950: var(--color-green-950);
+
+  /* ─── Geometry: flat and square ───
+     The site draws structure with hairlines, not shadows, and uses square
+     corners. Dense UI keeps 2–4px; rounded-full (pills, dots) is untouched,
+     matching the site's one rounded shape. */
+  --radius: 2px;
+  --radius-xs: 2px;
+  --radius-sm: 2px;
+  --radius-md: 3px;
+  --radius-lg: 4px;
+  --radius-xl: 4px;
+  --radius-2xl: 4px;
+  --radius-3xl: 4px;
+  --radius-4xl: 4px;
+
+  /* In-flow surfaces are flat. Floating layers (menus, popovers, dialogs)
+     keep a faint ink-tinted lift so they read as above the page. */
+  --shadow: 0 0 #0000;
+  --shadow-2xs: 0 0 #0000;
+  --shadow-xs: 0 0 #0000;
+  --shadow-sm: 0 0 #0000;
+  --shadow-md: 0 4px 16px -8px rgb(11 13 16 / 0.14);
+  --shadow-lg: 0 8px 24px -12px rgb(11 13 16 / 0.18);
+  --shadow-xl: 0 12px 32px -12px rgb(11 13 16 / 0.22);
+  --shadow-2xl: 0 16px 40px -16px rgb(11 13 16 / 0.28);
+
+  /* ─── Weight ───
+     The site sets everything in Inter 400 and gets emphasis from size and
+     colour. A dense dashboard still needs some weight hierarchy, so the
+     steps are compressed toward 400 rather than flattened. */
+  --font-weight-medium: 450;
+  --font-weight-semibold: 500;
+  --font-weight-bold: 600;
+
+  /* ─── Tracking ───
+     The site tracks everything slightly tight: about -0.01em at body sizes
+     (set on body below) and -0.02 to -0.04em on display type. */
+  --text-lg--letter-spacing: -0.015em;
+  --text-xl--letter-spacing: -0.02em;
+  --text-2xl--letter-spacing: -0.025em;
+  --text-3xl--letter-spacing: -0.03em;
+  --text-4xl--letter-spacing: -0.035em;
+  --text-5xl--letter-spacing: -0.04em;
+}
+
+/* ─── Type: Inter as textlayer.ai sets it ───
+   Measured on the live site: the same four Inter character variants on every
+   element — open 6 (cv03), open 9 (cv04), flat-top 3 (cv09) and the
+   single-storey a (cv11) — which give the site its look. They need the full
+   Inter build (public/fonts/InterVariable.woff2). In the base layer so
+   Tailwind tracking-* utilities still win. */
+@layer base {
+  body {
+    font-feature-settings: "cv03", "cv04", "cv09", "cv11";
+    letter-spacing: -0.01em;
+  }
+
+  /* Code keeps monospace's natural spacing. */
+  code,
+  kbd,
+  samp,
+  pre,
+  .font-mono {
+    letter-spacing: 0;
+  }
+}
+
+/* ─── Figures in Inter ───
+   The site has no monospace: figures like "$0.50" are Inter. In this codebase
+   `font-mono tabular-nums` always marks a figure (cost, token count, duration,
+   countdown) and never code, so this one rule moves every metric to Inter
+   with tabular numerals while code, paths and branch names stay in Geist Mono.
+   (.font-metric-value, the other metric hook, is switched in index.css.) */
+.font-mono.tabular-nums {
+  font-family: var(--font-sans);
+}
+
+/* Selection in the brand cobalt. */
+::selection {
+  background: color-mix(in oklab, var(--color-blue-500) 22%, transparent);
+}

@@ -1,4 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <rect width="100" height="100" rx="20" fill="#f97316"/>
-  <text x="50" y="68" font-family="system-ui, sans-serif" font-size="50" font-weight="bold" fill="white" text-anchor="middle">C</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -5.33 32.636 32.636">
+  <!-- TextLayer mark (the two diamonds from the textlayer.ai wordmark): ink on light tabs, white on dark. -->
+  <style>path{fill:#0B0D10}@media (prefers-color-scheme:dark){path{fill:#FFFFFF}}</style>
+  <path d="M 10.975 0 L 0 11.014 L 10.958 21.978 L 8.421 11.021 L 15.148 4.269 Z"/>
+  <path d="M 20.744 0 L 9.9 11.013 L 20.727 21.977 L 31.636 11.03 Z"/>
 </svg>

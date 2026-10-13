@@ -2,7 +2,6 @@ import { type CodeRenderContextValue, CodeRenderProvider } from '@claude-view/sh
 import { useEffect, useMemo } from 'react'
 import { Outlet } from 'react-router-dom'
 import { AuthBanner } from './components/AuthBanner'
-import { Banner } from './components/ui/Banner'
 import { CodeBlock } from './components/CodeBlock'
 import { ColdStartOverlay } from './components/ColdStartOverlay'
 import { CommandPalette } from './components/CommandPalette'
@@ -108,10 +107,6 @@ export default function App() {
           audioUnlocked={audioUnlocked}
         />
         <AuthBanner />
-        <Banner variant="experimental" layout="bar" dismissKey="cli-beta-dismissed">
-          <strong>CLI Interaction</strong> is in public beta. You can spawn and control Claude Code
-          sessions directly from the Live Monitor. Feedback and bug reports welcome!
-        </Banner>
         <ColdStartOverlay progress={indexingProgress} />
 
         <div className="flex-1 flex overflow-hidden">

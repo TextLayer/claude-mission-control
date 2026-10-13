@@ -5,10 +5,10 @@ import type { CategoryNode } from '../../types/generated/CategoryNode'
 
 // Color mapping for L1 categories
 const CATEGORY_COLORS: Record<string, { fill: string; hover: string }> = {
-  code_work: { fill: '#3B82F6', hover: '#2563EB' },
-  support_work: { fill: '#10B981', hover: '#059669' },
-  thinking_work: { fill: '#8B5CF6', hover: '#7C3AED' },
-  uncategorized: { fill: '#6B7280', hover: '#4B5563' },
+  code_work: { fill: 'var(--color-blue-500)', hover: 'var(--color-blue-600)' },
+  support_work: { fill: 'var(--color-emerald-500)', hover: 'var(--color-emerald-600)' },
+  thinking_work: { fill: 'var(--color-violet-500)', hover: 'var(--color-violet-600)' },
+  uncategorized: { fill: 'var(--color-gray-500)', hover: 'var(--color-gray-600)' },
 }
 
 interface TreemapProps {
@@ -32,7 +32,7 @@ export function CategoryTreemap({ data, onCategoryClick, selectedCategory }: Tre
       id: l1.id,
       size: l1.count,
       percentage: l1.percentage,
-      fill: CATEGORY_COLORS[l1.id]?.fill ?? '#6B7280',
+      fill: CATEGORY_COLORS[l1.id]?.fill ?? 'var(--color-gray-500)',
       children:
         l1.children?.map((l2) => ({
           name: l2.name,
@@ -40,7 +40,7 @@ export function CategoryTreemap({ data, onCategoryClick, selectedCategory }: Tre
           size: l2.count,
           percentage: l2.percentage,
           parentId: l1.id,
-          fill: CATEGORY_COLORS[l1.id]?.fill ?? '#6B7280',
+          fill: CATEGORY_COLORS[l1.id]?.fill ?? 'var(--color-gray-500)',
         })) ?? [],
     }))
   }, [data])
@@ -77,8 +77,8 @@ export function CategoryTreemap({ data, onCategoryClick, selectedCategory }: Tre
             width={width}
             height={height}
             style={{
-              fill: CATEGORY_COLORS[rootId]?.fill ?? '#6B7280',
-              stroke: isSelected ? '#FFF' : isHovered ? '#FFF' : '#1F2937',
+              fill: CATEGORY_COLORS[rootId]?.fill ?? 'var(--color-gray-500)',
+              stroke: isSelected ? '#FFF' : isHovered ? '#FFF' : 'var(--color-gray-800)',
               strokeWidth: isSelected ? 3 : isHovered ? 2 : 1,
               opacity: isHovered || isSelected ? 1 : 0.85,
               cursor: 'pointer',
@@ -137,7 +137,7 @@ export function CategoryTreemap({ data, onCategoryClick, selectedCategory }: Tre
           data={treemapData}
           dataKey="size"
           aspectRatio={4 / 3}
-          stroke="#1F2937"
+          stroke="var(--color-gray-800)"
           content={<CustomContent />}
         >
           <Tooltip

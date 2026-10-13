@@ -1,6 +1,6 @@
 {
   "name": "claude-view",
-  "version": "0.45.0",
+  "version": "1.0.0",
   "private": true,
   "description": "You have 10 Claude sessions running. What are they doing? Live dashboard for Claude Code — monitor every session, track costs, search history, see sub-agents. One command: npx claude-view",
   "type": "module",
@@ -25,7 +25,6 @@
     "lint": "turbo lint",
     "typecheck": "turbo typecheck",
     "test": "turbo test",
-    "preview": "bun run build:sidecar && turbo build --filter=@claude-view/web && unset CLAUDECODE CLAUDE_CODE_SSE_PORT CLAUDE_CODE_ENTRYPOINT && RUST_LOG=warn,claude_view_server=info,claude_view_core=info SUPABASE_URL=${SUPABASE_URL:-https://iebjyftoadahqptmfcio.supabase.co} SHARE_WORKER_URL=https://api-share.claudeview.ai SHARE_VIEWER_URL=https://share.claudeview.ai cargo run -p claude-view-server --release",
     "start": "bun run build:sidecar && cargo run -p claude-view-server --release",
     "dev:server": "bash scripts/dev-server.sh",
     "test:rust": "cargo test --workspace",
@@ -42,17 +41,11 @@
     "integrity:evidence:quick": "EVIDENCE_QUICK=1 cargo run -p claude-view-core --bin evidence-audit",
     "clean:db": "rm -f ~/.claude-view/claude-view.db*",
     "cleanupport": "PORTS='47892 5173 3001'; for port in $PORTS; do pids=\"$(lsof -ti tcp:$port)\"; if [ -n \"$pids\" ]; then echo \"Killing $pids listening on port $port\"; kill -9 $pids; else echo \"No process found on port $port\"; fi; done",
-    "dist:pack": "mkdir -p /tmp/claude-view-staging && cp target/release/claude-view /tmp/claude-view-staging/ && cp -r apps/web/dist /tmp/claude-view-staging/ && tar -czf /tmp/claude-view-darwin-arm64.tar.gz -C /tmp/claude-view-staging . && echo 'Packed: /tmp/claude-view-darwin-arm64.tar.gz'",
-    "dist:install": "rm -rf ~/.claude-view && mkdir -p ~/.claude-view/bin && tar -xzf /tmp/claude-view-darwin-arm64.tar.gz -C ~/.claude-view/bin && echo '0.1.0' > ~/.claude-view/version && echo 'Installed to ~/.claude-view/'",
-    "dist:run": "node npx-cli/index.js",
-    "dist:test": "bun run build:sidecar && cd apps/web && bun run build && cd ../.. && cargo build --release -p claude-view-server && bun run dist:pack && bun run dist:install && bun run dist:run",
-    "dist:clean": "rm -rf ~/.claude-view /tmp/claude-view-staging /tmp/claude-view-darwin-arm64.tar.gz && echo 'Cleaned dist cache'",
     "release": "./scripts/release.sh",
+    "release:patch": "./scripts/release.sh patch",
     "release:minor": "./scripts/release.sh minor",
     "release:major": "./scripts/release.sh major",
-    "release:bump": "node -e \"const v=process.argv[1]; const fs=require('fs'); const p=JSON.parse(fs.readFileSync('npx-cli/package.json','utf8')); p.version=v; fs.writeFileSync('npx-cli/package.json', JSON.stringify(p,null,2)+'\\n'); console.log('npx-cli/package.json -> '+v);\"",
-    "release:tag": "node -e \"const v=require('./npx-cli/package.json').version; require('child_process').execFileSync('git',['tag','v'+v],{stdio:'inherit'}); console.log('Tagged v'+v);\"",
-    "release:push": "git push && git push --tags",
+    "release:dry-run": "./scripts/release.sh --dry-run",
     "postinstall": "cd sidecar && bun install && cd ../infra/share-worker && bun install",
     "prepare": "node -e \"try{if(require('fs').statSync('.git').isFile())process.exit(0)}catch(_){process.exit(0)}require('child_process').execFileSync('lefthook',['install','--force'],{stdio:'inherit'});\""
   },
@@ -96,13 +89,13 @@
     "axum",
     "sqlite"
   ],
-  "homepage": "https://claudeview.ai",
+  "homepage": "https://github.com/TextLayer/claude-mission-control",
   "repository": {
     "type": "git",
-    "url": "https://github.com/tombelieber/claude-view"
+    "url": "https://github.com/TextLayer/claude-mission-control"
   },
   "bugs": {
-    "url": "https://github.com/tombelieber/claude-view/issues"
+    "url": "https://github.com/TextLayer/claude-mission-control/issues"
   },
   "author": "",
   "license": "MIT",

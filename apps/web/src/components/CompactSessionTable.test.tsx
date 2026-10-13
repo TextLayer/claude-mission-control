@@ -245,10 +245,10 @@ describe('CompactSessionTable', () => {
 
       expect(branchCell.textContent).toContain('feature/test')
 
-      // Branch pill should have violet badge classes
-      const pill = branchCell.querySelector('.bg-violet-50')
+      // Branch pill uses the TextLayer cobalt badge classes
+      const pill = branchCell.querySelector('.bg-blue-50')
       expect(pill).toBeInTheDocument()
-      expect(pill).toHaveClass('text-violet-700')
+      expect(pill).toHaveClass('text-blue-600')
     })
 
     it('formats activity as prompts/tokens inline', () => {

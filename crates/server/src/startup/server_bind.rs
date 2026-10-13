@@ -13,7 +13,7 @@ use tokio::net::TcpListener;
 
 use std::path::Path;
 
-use crate::startup::install::{detect_install_source, ping_install_beacon};
+use crate::startup::install::detect_install_source;
 use crate::startup::port::{get_port, try_reclaim_port};
 use crate::startup::startup_telemetry::{plan_startup_telemetry, print_privacy_notice};
 use crate::telemetry::TelemetryClient;
@@ -99,8 +99,8 @@ pub fn register_hooks_and_port_file(port: u16) {
 }
 
 /// Fire startup telemetry (`server_started`, one-shot `installed`, the
-/// daily `app_active` heartbeat), show the one-time privacy notice, and
-/// ping the install beacon. All event emission is best-effort,
+/// daily `app_active` heartbeat) and show the one-time privacy notice.
+/// (The TextLayer fork removed upstream's install-beacon ping.) All event emission is best-effort,
 /// fire-and-forget, non-blocking; the dedup state is persisted once.
 ///
 /// The pure decision lives in [`plan_startup_telemetry`]; this function is
@@ -178,8 +178,4 @@ pub fn fire_startup_events(telemetry: Option<&TelemetryClient>, telemetry_config
             tracing::warn!("failed to persist telemetry startup state: {e}");
         }
     }
-
-    // Ping CF Worker for unified install tracking (fire-and-forget).
-    // All install paths (plugin, npx, install.sh) converge to one dashboard.
-    ping_install_beacon(install_source);
 }

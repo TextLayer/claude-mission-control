@@ -6,7 +6,6 @@ import { useEffect } from 'react'
  *
  * | Shortcut           | Action                  |
  * |--------------------|-------------------------|
- * | Ctrl+T             | New session (new tab)   |
  * | Ctrl+W             | Close active tab        |
  * | Ctrl+\             | Split active tab right  |
  * | Ctrl+Shift+\       | Split active tab down   |
@@ -28,19 +27,6 @@ export function useChatKeyboardShortcuts(api: DockviewApi | null) {
       }
 
       const ctrl = e.ctrlKey || e.metaKey
-
-      // Ctrl+T — New session tab
-      if (ctrl && !e.shiftKey && e.key === 't') {
-        e.preventDefault()
-        const id = `chat-new-${Date.now()}`
-        dv.addPanel({
-          id,
-          component: 'chat',
-          title: 'New Session',
-          params: { sessionId: '' },
-        })
-        return
-      }
 
       // Ctrl+W — Close active tab
       if (ctrl && !e.shiftKey && e.key === 'w') {

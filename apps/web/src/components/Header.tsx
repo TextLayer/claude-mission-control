@@ -3,7 +3,6 @@ import {
   ExternalLink,
   Github,
   HelpCircle,
-  Home,
   Keyboard,
   MessageSquarePlus,
   Monitor,
@@ -18,9 +17,9 @@ import { Link, useLocation, useNavigate, useParams, useSearchParams } from 'reac
 import type { NotificationSoundSettings } from '../hooks/use-notification-sound'
 import { useTheme } from '../hooks/use-theme'
 import { useTrackEvent } from '../hooks/use-track-event'
+import { GITHUB_URL, PRODUCT_SHORT_NAME } from '../lib/brand'
 import { useAppStore } from '../store/app-store'
-
-const GITHUB_URL = 'https://github.com/tombelieber/claude-view'
+import { TextLayerLogo } from './brand/TextLayerLogo'
 
 interface HelpItem {
   icon: React.ReactNode
@@ -204,9 +203,14 @@ export function Header({
     <header className="h-12 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between px-4">
       {/* Left: Logo + Breadcrumbs */}
       <div className="flex items-center gap-2">
-        <Link to="/" className="flex items-center gap-2 hover:opacity-70 transition-opacity">
-          <Home className="w-4 h-4 text-gray-400" />
-          <h1 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Claude View</h1>
+        <Link to="/" className="flex items-center gap-2.5 hover:opacity-70 transition-opacity">
+          <h1 className="flex items-center gap-2.5">
+            <TextLayerLogo className="h-[18px] w-auto text-gray-900 dark:text-gray-100" />
+            <span aria-hidden="true" className="h-4 w-px bg-gray-300 dark:bg-gray-700" />
+            <span className="text-[15px] text-gray-600 dark:text-gray-300">
+              {PRODUCT_SHORT_NAME}
+            </span>
+          </h1>
           <HealthIndicator />
         </Link>
         <AuthPill />

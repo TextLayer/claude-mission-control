@@ -216,7 +216,7 @@ export function ListView({ sessions, selectedId, onSelect }: ListViewProps) {
                 <td className="px-2 py-2 w-[120px]">
                   {session.effectiveBranch ? (
                     <span className="inline-flex items-center gap-1 max-w-full">
-                      <span className="inline-flex items-center gap-1 bg-violet-50 dark:bg-violet-950/50 border border-violet-200 dark:border-violet-800 text-violet-700 dark:text-violet-300 px-1.5 py-0.5 rounded text-xs font-mono max-w-full">
+                      <span className="inline-flex items-center gap-1 bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800 text-blue-600 dark:text-blue-400 px-1.5 py-0.5 rounded text-xs font-mono max-w-full">
                         <GitBranch className="h-3 w-3 shrink-0" />
                         <span className="truncate">{session.effectiveBranch}</span>
                       </span>

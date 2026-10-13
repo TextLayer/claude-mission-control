@@ -4,10 +4,10 @@ resolver = "2"
 members = ["crates/*","workspace-hack"]
 
 [workspace.package]
-version = "0.45.0"
+version = "1.0.0"
 edition = "2021"
 license = "MIT"
-repository = "https://github.com/tombelieber/claude-view"
+repository = "https://github.com/TextLayer/claude-mission-control"
 
 [workspace.dependencies]
 # Async runtime

@@ -61,10 +61,9 @@ export function ChatPanel({ params, api }: IDockviewPanelProps<ChatPanelParams>)
   }, [api])
 
   // Called when the FSM's panel session id diverges from this panel's prop:
-  //   - blank "New Chat" panel creates a session, or
-  //   - a watched CLI session is TAKEN OVER (forked) into a new SDK session id.
-  // Either way, point this dockview panel + the router URL at the new id. The
-  // original CLI session stays in the live list (sidebar) and keeps streaming.
+  // a watched CLI session is TAKEN OVER (forked) into a new SDK session id.
+  // Point this dockview panel + the router URL at the new id. The original
+  // CLI session stays in the live list (sidebar) and keeps streaming.
   const onSessionCreated = useCallback(
     (newSessionId: string) => {
       api.updateParameters({ sessionId: newSessionId })
@@ -84,10 +83,23 @@ export function ChatPanel({ params, api }: IDockviewPanelProps<ChatPanelParams>)
     )
   }
 
+  // No session → nothing to show. Mission Control doesn't start sessions; a
+  // blank panel (e.g. restored from an older saved layout) just asks the user
+  // to pick one instead of rendering a composer that would create a session.
+  if (!sessionId) {
+    return (
+      <div className="flex items-center justify-center h-full px-4">
+        <p className="text-sm text-gray-400 dark:text-gray-500">
+          Select a session from the sidebar.
+        </p>
+      </div>
+    )
+  }
+
   return (
     <div ref={containerRef} className="flex flex-col h-full min-w-0 overflow-hidden">
       <ChatSession
-        sessionId={sessionId || undefined}
+        sessionId={sessionId}
         ownership={ownership ?? null}
         liveProjectPath={liveProjectPath}
         liveContextData={liveContextData}

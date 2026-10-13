@@ -62,6 +62,13 @@ describe('ChatPanel', () => {
     expect(el.getAttribute('data-session-id')).toBe('abc-123')
   })
 
+  it('a panel without a session never renders the composer (no in-app session creation)', () => {
+    // Blank panels can still be restored from layouts saved before New Chat was removed.
+    renderPanel({ sessionId: '' })
+    expect(screen.queryByTestId('chat-session')).not.toBeInTheDocument()
+    expect(screen.getByText('Select a session from the sidebar.')).toBeInTheDocument()
+  })
+
   it('passes ownership to ChatSession', () => {
     renderPanel({ ownership: { tmux: { cliSessionId: 'cv-1' } } })
     const el = screen.getByTestId('chat-session')

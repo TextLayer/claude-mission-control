@@ -119,10 +119,8 @@ export function ColdStartOverlay({ progress }: ColdStartOverlayProps) {
     >
       <div
         className={[
-          'border-b px-4 py-2.5',
-          isDone
-            ? 'bg-green-50 dark:bg-green-950/40 border-green-200 dark:border-green-800'
-            : 'bg-blue-50 dark:bg-blue-950/40 border-blue-200 dark:border-blue-800',
+          // TextLayer: white bar on a hairline; the status icon carries the colour
+          'border-b px-4 py-2.5 bg-white dark:bg-gray-950 border-gray-200 dark:border-gray-800',
         ].join(' ')}
         // biome-ignore lint/a11y/useSemanticElements: status bar is a div with ARIA, not an <output> form element
         role="status"
@@ -161,13 +159,13 @@ export function ColdStartOverlay({ progress }: ColdStartOverlayProps) {
           {/* Content */}
           <div className="flex-1 min-w-0">
             {progress.phase === 'reading-indexes' && (
-              <p className="text-sm text-blue-700 dark:text-blue-300">
+              <p className="text-sm text-gray-700 dark:text-gray-300">
                 Scanning your Claude Code history...
               </p>
             )}
 
             {progress.phase === 'ready' && (
-              <p className="text-sm text-blue-700 dark:text-blue-300">
+              <p className="text-sm text-gray-700 dark:text-gray-300">
                 Found {progress.projects.toLocaleString()} projects and{' '}
                 {progress.sessions.toLocaleString()} sessions. Starting deep index...
               </p>
@@ -220,11 +218,11 @@ export function ColdStartOverlay({ progress }: ColdStartOverlayProps) {
             )}
 
             {progress.phase === 'finalizing' && (
-              <p className="text-sm text-blue-700 dark:text-blue-300">Finalizing sessions...</p>
+              <p className="text-sm text-gray-700 dark:text-gray-300">Finalizing sessions...</p>
             )}
 
             {isDone && (
-              <p className="text-sm text-green-700 dark:text-green-300">
+              <p className="text-sm text-gray-700 dark:text-gray-300">
                 Ready &mdash; {progress.total.toLocaleString()} sessions indexed
                 {progress.bytesTotal > 0 && ` (${formatBytes(progress.bytesTotal)})`}
               </p>
@@ -245,9 +243,7 @@ export function ColdStartOverlay({ progress }: ColdStartOverlayProps) {
               className={[
                 'flex-shrink-0 p-1 rounded transition-colors duration-150',
                 'focus-visible:outline-none focus-visible:ring-2 cursor-pointer',
-                isDone
-                  ? 'text-green-400 hover:text-green-600 dark:text-green-500 dark:hover:text-green-300 focus-visible:ring-green-400'
-                  : 'text-blue-400 hover:text-blue-600 dark:text-blue-500 dark:hover:text-blue-300 focus-visible:ring-blue-400',
+                'text-gray-400 hover:text-gray-700 dark:text-gray-500 dark:hover:text-gray-200 focus-visible:ring-blue-400',
               ].join(' ')}
               aria-label="Dismiss indexing banner"
             >

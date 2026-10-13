@@ -54,18 +54,14 @@ describe('useChatKeyboardShortcuts', () => {
     fireKey('t')
   })
 
-  it('Ctrl+T adds a new panel', () => {
-    const api = mockDockviewApi()
+  it('Ctrl+T does not open a blank session tab (sessions start in Claude Code)', () => {
+    const api = mockDockviewApi([{ id: 'panel-1', sessionId: 'sess-1' }])
     // biome-ignore lint/suspicious/noExplicitAny: mock api
     renderHook(() => useChatKeyboardShortcuts(api as any))
 
     fireKey('t')
 
-    expect(api.addPanel).toHaveBeenCalledTimes(1)
-    expect(api.addPanel.mock.calls[0][0]).toMatchObject({
-      component: 'chat',
-      title: 'New Session',
-    })
+    expect(api.addPanel).not.toHaveBeenCalled()
   })
 
   it('Ctrl+W closes active panel', () => {
@@ -104,7 +100,7 @@ describe('useChatKeyboardShortcuts', () => {
   })
 
   it('ignores shortcuts when target is input/textarea', () => {
-    const api = mockDockviewApi()
+    const api = mockDockviewApi([{ id: 'panel-1', sessionId: 'sess-1' }])
     // biome-ignore lint/suspicious/noExplicitAny: mock api
     renderHook(() => useChatKeyboardShortcuts(api as any))
 
@@ -112,7 +108,7 @@ describe('useChatKeyboardShortcuts', () => {
     const input = document.createElement('input')
     document.body.appendChild(input)
     const event = new KeyboardEvent('keydown', {
-      key: 't',
+      key: '\\',
       ctrlKey: true,
       bubbles: true,
     })

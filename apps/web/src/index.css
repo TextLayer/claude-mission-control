@@ -3,17 +3,21 @@
 @import '../../../packages/shared/src/styles/conversation-theme.css';
 @import 'dockview-react/dist/styles/dockview.css';
 @import './styles/dockview-theme.css';
+@import './styles/textlayer-theme.css';
 @plugin "@tailwindcss/typography";
 
-/* ─── Self-hosted Geist variable fonts ─── */
+/* ─── Self-hosted variable fonts ─── */
 
-/* Geist Sans — UI text (variable weight 100–900) */
+/* Inter 4.1 — UI text, TextLayer's typeface (variable: wght 100–900, opsz 14–32).
+   The full build from rsms/inter v4.1 (docs/font-files/InterVariable.woff2):
+   unlike the Google Fonts subsets it keeps the character variants textlayer.ai
+   switches on (cv03/cv04/cv09/cv11 — see textlayer-theme.css). */
 @font-face {
-  font-family: 'Geist';
+  font-family: 'Inter';
   font-style: normal;
   font-weight: 100 900;
   font-display: swap;
-  src: url('/fonts/geist-sans-variable.woff2') format('woff2');
+  src: url('/fonts/InterVariable.woff2') format('woff2');
 }
 
 /* Geist Mono — code, metrics, tabular data (variable weight 100–900) */
@@ -27,11 +31,11 @@
 
 /* Metric-matched fallback fonts — prevents CLS during font swap */
 @font-face {
-  font-family: 'Geist Fallback';
+  font-family: 'Inter Fallback';
   src: local('Arial');
-  size-adjust: 100%;
-  ascent-override: 95%;
-  descent-override: 22%;
+  size-adjust: 107.4%;
+  ascent-override: 90.2%;
+  descent-override: 22.48%;
   line-gap-override: 0%;
 }
 @font-face {
@@ -66,24 +70,24 @@
   --text-3xl--line-height: 1.1;
 
   /* ─── Apple Color System ─── */
-  --color-apple-bg: #F5F5F7;
+  --color-apple-bg: var(--color-gray-50);
   --color-apple-surface: #FFFFFF;
-  --color-apple-text1: #1D1D1F;
-  --color-apple-text2: #6E6E73;
-  --color-apple-text3: #AEAEB2;
-  --color-apple-sep: #D1D1D6;
-  --color-apple-sep2: #E5E5EA;
-  --color-apple-blue: #007AFF;
-  --color-apple-orange: #FF9500;
-  --color-apple-red: #FF3B30;
-  --color-apple-indigo: #5856D6;
-  --color-apple-green: #34C759;
+  --color-apple-text1: var(--color-gray-900);
+  --color-apple-text2: var(--color-gray-500);
+  --color-apple-text3: var(--color-gray-400);
+  --color-apple-sep: var(--color-gray-300);
+  --color-apple-sep2: var(--color-gray-200);
+  --color-apple-blue: var(--color-blue-500);
+  --color-apple-orange: var(--color-amber-500);
+  --color-apple-red: var(--color-red-500);
+  --color-apple-indigo: var(--color-indigo-600);
+  --color-apple-green: var(--color-green-500);
 }
 
 /* Design System Fonts */
 :root {
   --font-mono: "Geist Mono", "Geist Mono Fallback", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
-  --font-sans: "Geist", "Geist Fallback", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "Inter", "Inter Fallback", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 body {
@@ -99,28 +103,28 @@ body {
   font-size: 2rem;      /* 32px */
   line-height: 1.1;
   letter-spacing: -0.03em;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
 }
 
 .type-title-1 {
   font-size: 1.5rem;    /* 24px */
   line-height: 1.2;
   letter-spacing: -0.02em;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
 }
 
 .type-title-2 {
   font-size: 1.25rem;   /* 20px */
   line-height: 1.25;
   letter-spacing: -0.015em;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
 }
 
 .type-title-3 {
   font-size: 1.0625rem; /* 17px */
   line-height: 1.3;
   letter-spacing: -0.01em;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
 }
 
 .type-body {
@@ -134,7 +138,7 @@ body {
   font-size: 0.9375rem; /* 15px */
   line-height: 1.5;
   letter-spacing: 0;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
 }
 
 .type-callout {
@@ -155,7 +159,7 @@ body {
   font-size: 0.6875rem; /* 11px */
   line-height: 1.35;
   letter-spacing: 0.02em;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
 }
 
 /* ── Custom Scrollbars ── */
@@ -163,11 +167,11 @@ body {
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #d1d5db transparent;
+  scrollbar-color: var(--color-gray-300) transparent;
 }
 
 :where(.dark, .dark *) * {
-  scrollbar-color: #4b5563 transparent;
+  scrollbar-color: var(--color-gray-600) transparent;
 }
 
 /* Webkit (Chrome, Safari, Edge) */
@@ -181,12 +185,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #d1d5db;
+  background: var(--color-gray-300);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #9ca3af;
+  background: var(--color-gray-400);
 }
 
 ::-webkit-scrollbar-corner {
@@ -194,29 +198,29 @@ body {
 }
 
 :where(.dark, .dark *) ::-webkit-scrollbar-thumb {
-  background: #4b5563;
+  background: var(--color-gray-600);
 }
 
 :where(.dark, .dark *) ::-webkit-scrollbar-thumb:hover {
-  background: #6b7280;
+  background: var(--color-gray-500);
 }
 
 /* ── Prose: code block overrides ── */
 
 /* Light mode: soft gray bg, dark text */
 .prose pre {
-  background: #f6f8fa;
-  color: #24292f;
-  border: 1px solid #d0d7de;
+  background: var(--color-gray-50);
+  color: var(--color-gray-900);
+  border: 1px solid var(--color-gray-200);
 }
 
 .prose :not(pre) > code {
-  background: #eff1f3;
-  color: #24292f;
+  background: var(--color-gray-100);
+  color: var(--color-gray-900);
   padding: 0.15em 0.35em;
   border-radius: 0.25rem;
   font-size: 0.875em;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
 }
 
 .prose :not(pre) > code::before,
@@ -226,19 +230,21 @@ body {
 
 /* Dark mode: deep surface bg, light text */
 :where(.dark, .dark *) .prose pre {
-  background: #161b22;
-  color: #c9d1d9;
-  border: 1px solid #30363d;
+  background: var(--color-gray-900);
+  color: var(--color-gray-300);
+  border: 1px solid var(--color-gray-700);
 }
 
 :where(.dark, .dark *) .prose :not(pre) > code {
-  background: #21262d;
-  color: #c9d1d9;
+  background: var(--color-gray-800);
+  color: var(--color-gray-300);
 }
 
-/* Utility classes for metric typography */
+/* Utility classes for metric typography.
+   TextLayer: figures are Inter with tabular numerals, as on textlayer.ai. */
 .font-metric-value {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums;
 }
 
 .font-metric-label {
@@ -248,7 +254,7 @@ body {
 /* ── ActivityCalendar: react-day-picker heatmap ── */
 
 .activity-calendar .rdp-root {
-  --rdp-accent-color: #059669;
+  --rdp-accent-color: var(--color-emerald-600);
   --rdp-accent-background-color: transparent;
   width: 100%;
   max-width: 100%;
@@ -269,14 +275,14 @@ body {
 }
 
 .activity-calendar .rdp-caption_label {
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   font-size: 0.9375rem;
-  color: #111827;
+  color: var(--color-gray-900);
   letter-spacing: -0.01em;
 }
 
 :where(.dark, .dark *) .activity-calendar .rdp-caption_label {
-  color: #f3f4f6;
+  color: var(--color-gray-100);
 }
 
 /* Nav buttons */
@@ -293,26 +299,26 @@ body {
   width: 2rem;
   height: 2rem;
   border-radius: 0.5rem;
-  color: #6b7280;
+  color: var(--color-gray-500);
   cursor: pointer;
   transition: all 150ms;
 }
 
 .activity-calendar .rdp-button_previous:hover,
 .activity-calendar .rdp-button_next:hover {
-  background: #f3f4f6;
-  color: #111827;
+  background: var(--color-gray-100);
+  color: var(--color-gray-900);
 }
 
 :where(.dark, .dark *) .activity-calendar .rdp-button_previous,
 :where(.dark, .dark *) .activity-calendar .rdp-button_next {
-  color: #9ca3af;
+  color: var(--color-gray-400);
 }
 
 :where(.dark, .dark *) .activity-calendar .rdp-button_previous:hover,
 :where(.dark, .dark *) .activity-calendar .rdp-button_next:hover {
-  background: #374151;
-  color: #f3f4f6;
+  background: var(--color-gray-700);
+  color: var(--color-gray-100);
 }
 
 /* Day grid: 7 even columns filling width */
@@ -325,8 +331,8 @@ body {
 /* Weekday headers */
 .activity-calendar .rdp-weekday {
   font-size: 0.6875rem;
-  font-weight: 500;
-  color: #9ca3af;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-gray-400);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   padding-bottom: 0.5rem;
@@ -335,7 +341,7 @@ body {
 }
 
 :where(.dark, .dark *) .activity-calendar .rdp-weekday {
-  color: #6b7280;
+  color: var(--color-gray-500);
 }
 
 /* Day cells: uniform square */
@@ -349,7 +355,7 @@ body {
 /* Range selection styling */
 .activity-calendar .rdp-range_start .rdp-day_button,
 .activity-calendar .rdp-range_end .rdp-day_button {
-  box-shadow: 0 0 0 2px #059669;
+  box-shadow: 0 0 0 2px var(--color-emerald-600);
 }
 
 .activity-calendar .rdp-range_middle .rdp-day_button {
@@ -358,7 +364,7 @@ body {
 
 /* Today indicator */
 .activity-calendar .rdp-today {
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
 }
 
 /* Hide default selected styles that clash */
@@ -370,26 +376,26 @@ body {
 /* ── DateRangePicker: react-day-picker range mode ── */
 
 .date-range-picker .rdp-root {
-  --rdp-accent-color: #2563eb;
-  --rdp-accent-background-color: #dbeafe;
+  --rdp-accent-color: var(--color-blue-600);
+  --rdp-accent-background-color: var(--color-blue-100);
   --rdp-range_start-color: #fff;
-  --rdp-range_start-background: #2563eb;
+  --rdp-range_start-background: var(--color-blue-600);
   --rdp-range_end-color: #fff;
-  --rdp-range_end-background: #2563eb;
-  --rdp-range_middle-color: #1e40af;
-  --rdp-range_middle-background: #dbeafe;
+  --rdp-range_end-background: var(--color-blue-600);
+  --rdp-range_middle-color: var(--color-blue-800);
+  --rdp-range_middle-background: var(--color-blue-100);
   font-size: 0.875rem;
 }
 
 :where(.dark, .dark *) .date-range-picker .rdp-root {
-  --rdp-accent-color: #3b82f6;
-  --rdp-accent-background-color: #1e3a5f;
+  --rdp-accent-color: var(--color-blue-500);
+  --rdp-accent-background-color: var(--color-blue-950);
   --rdp-range_start-color: #fff;
-  --rdp-range_start-background: #3b82f6;
+  --rdp-range_start-background: var(--color-blue-500);
   --rdp-range_end-color: #fff;
-  --rdp-range_end-background: #3b82f6;
-  --rdp-range_middle-color: #93c5fd;
-  --rdp-range_middle-background: #1e3a5f;
+  --rdp-range_end-background: var(--color-blue-500);
+  --rdp-range_middle-color: var(--color-blue-300);
+  --rdp-range_middle-background: var(--color-blue-950);
 }
 
 /* Month caption: name + nav arrows */
@@ -402,14 +408,14 @@ body {
 }
 
 .date-range-picker .rdp-caption_label {
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   font-size: 0.875rem;
-  color: #111827;
+  color: var(--color-gray-900);
   letter-spacing: -0.01em;
 }
 
 :where(.dark, .dark *) .date-range-picker .rdp-caption_label {
-  color: #f3f4f6;
+  color: var(--color-gray-100);
 }
 
 /* Nav buttons */
@@ -426,33 +432,33 @@ body {
   width: 1.75rem;
   height: 1.75rem;
   border-radius: 0.375rem;
-  color: #6b7280;
+  color: var(--color-gray-500);
   cursor: pointer;
   transition: all 150ms;
 }
 
 .date-range-picker .rdp-button_previous:hover,
 .date-range-picker .rdp-button_next:hover {
-  background: #f3f4f6;
-  color: #111827;
+  background: var(--color-gray-100);
+  color: var(--color-gray-900);
 }
 
 :where(.dark, .dark *) .date-range-picker .rdp-button_previous,
 :where(.dark, .dark *) .date-range-picker .rdp-button_next {
-  color: #9ca3af;
+  color: var(--color-gray-400);
 }
 
 :where(.dark, .dark *) .date-range-picker .rdp-button_previous:hover,
 :where(.dark, .dark *) .date-range-picker .rdp-button_next:hover {
-  background: #374151;
-  color: #f3f4f6;
+  background: var(--color-gray-700);
+  color: var(--color-gray-100);
 }
 
 /* Weekday headers */
 .date-range-picker .rdp-weekday {
   font-size: 0.6875rem;
-  font-weight: 500;
-  color: #9ca3af;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-gray-400);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   padding-bottom: 0.25rem;
@@ -460,7 +466,7 @@ body {
 }
 
 :where(.dark, .dark *) .date-range-picker .rdp-weekday {
-  color: #6b7280;
+  color: var(--color-gray-500);
 }
 
 /* Day cells */
@@ -469,67 +475,67 @@ body {
   height: 2rem;
   border-radius: 0.375rem;
   font-size: 0.8125rem;
-  color: #374151;
+  color: var(--color-gray-700);
   cursor: pointer;
   transition: all 100ms;
 }
 
 .date-range-picker .rdp-day_button:hover {
-  background: #f3f4f6;
+  background: var(--color-gray-100);
 }
 
 :where(.dark, .dark *) .date-range-picker .rdp-day_button {
-  color: #d1d5db;
+  color: var(--color-gray-300);
 }
 
 :where(.dark, .dark *) .date-range-picker .rdp-day_button:hover {
-  background: #374151;
+  background: var(--color-gray-700);
 }
 
 /* Today indicator */
 .date-range-picker .rdp-today .rdp-day_button {
-  font-weight: 700;
-  color: #2563eb;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-blue-600);
 }
 
 :where(.dark, .dark *) .date-range-picker .rdp-today .rdp-day_button {
-  color: #60a5fa;
+  color: var(--color-blue-400);
 }
 
 /* Outside / disabled days */
 .date-range-picker .rdp-disabled .rdp-day_button {
-  color: #d1d5db;
+  color: var(--color-gray-300);
   cursor: not-allowed;
 }
 
 :where(.dark, .dark *) .date-range-picker .rdp-disabled .rdp-day_button {
-  color: #4b5563;
+  color: var(--color-gray-600);
 }
 
 /* Range start + end: solid blue pill */
 .date-range-picker .rdp-range_start .rdp-day_button,
 .date-range-picker .rdp-range_end .rdp-day_button {
-  background: #2563eb;
+  background: var(--color-blue-600);
   color: #fff;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
 }
 
 :where(.dark, .dark *) .date-range-picker .rdp-range_start .rdp-day_button,
 :where(.dark, .dark *) .date-range-picker .rdp-range_end .rdp-day_button {
-  background: #3b82f6;
+  background: var(--color-blue-500);
   color: #fff;
 }
 
 /* Range middle: light blue band */
 .date-range-picker .rdp-range_middle .rdp-day_button {
-  background: #dbeafe;
-  color: #1e40af;
+  background: var(--color-blue-100);
+  color: var(--color-blue-800);
   border-radius: 0;
 }
 
 :where(.dark, .dark *) .date-range-picker .rdp-range_middle .rdp-day_button {
-  background: #1e3a5f;
-  color: #93c5fd;
+  background: var(--color-blue-950);
+  color: var(--color-blue-300);
 }
 
 /* Months side by side with gap */
@@ -594,31 +600,31 @@ body {
 @keyframes live-breathe {
   0% {
     transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--color-green-500) 70%, transparent);
     filter: brightness(1);
   }
   /* Fast charge — 40% of cycle */
   40% {
     transform: scale(1.5);
-    box-shadow: 0 0 10px 5px rgba(34, 197, 94, 0.6);
+    box-shadow: 0 0 10px 5px color-mix(in oklab, var(--color-green-500) 60%, transparent);
     filter: brightness(1.6);
   }
   /* Snap peak — brief flash */
   50% {
     transform: scale(1.25);
-    box-shadow: 0 0 18px 8px rgba(74, 222, 128, 0.45);
+    box-shadow: 0 0 18px 8px color-mix(in oklab, var(--color-green-400) 45%, transparent);
     filter: brightness(2);
   }
   /* Exhale back down */
   75% {
     transform: scale(0.9);
-    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.1);
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--color-green-500) 10%, transparent);
     filter: brightness(0.85);
   }
   /* Hold dim */
   100% {
     transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--color-green-500) 70%, transparent);
     filter: brightness(1);
   }
 }
@@ -674,28 +680,28 @@ body {
 /* Compacting card: border-color + box-shadow + opacity — all animate together */
 @keyframes live-compact-breathe {
   0%   {
-    border-color: #38bdf8;
-    box-shadow: 0 0 0 3px rgba(56,189,248,0.25), 0 0 16px 0 rgba(56,189,248,0.15);
+    border-color: var(--color-blue-400);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-blue-400) 25%, transparent), 0 0 16px 0 color-mix(in oklab, var(--color-blue-400) 15%, transparent);
     opacity: 1;
   }
   45%  {
-    border-color: #7dd3fc;
-    box-shadow: 0 0 0 6px rgba(125,211,252,0.40), 0 0 32px 4px rgba(56,189,248,0.30);
+    border-color: var(--color-blue-300);
+    box-shadow: 0 0 0 6px color-mix(in oklab, var(--color-blue-300) 40%, transparent), 0 0 32px 4px color-mix(in oklab, var(--color-blue-400) 30%, transparent);
     opacity: 0.62;
   }
   60%  {
-    border-color: #bae6fd;
-    box-shadow: 0 0 0 8px rgba(186,230,253,0.50), 0 0 42px 8px rgba(56,189,248,0.38);
+    border-color: var(--color-blue-200);
+    box-shadow: 0 0 0 8px color-mix(in oklab, var(--color-blue-200) 50%, transparent), 0 0 42px 8px color-mix(in oklab, var(--color-blue-400) 38%, transparent);
     opacity: 0.55;
   }
   75%  {
-    border-color: #7dd3fc;
-    box-shadow: 0 0 0 5px rgba(125,211,252,0.30), 0 0 24px 2px rgba(56,189,248,0.20);
+    border-color: var(--color-blue-300);
+    box-shadow: 0 0 0 5px color-mix(in oklab, var(--color-blue-300) 30%, transparent), 0 0 24px 2px color-mix(in oklab, var(--color-blue-400) 20%, transparent);
     opacity: 0.78;
   }
   100% {
-    border-color: #38bdf8;
-    box-shadow: 0 0 0 3px rgba(56,189,248,0.25), 0 0 16px 0 rgba(56,189,248,0.15);
+    border-color: var(--color-blue-400);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-blue-400) 25%, transparent), 0 0 16px 0 color-mix(in oklab, var(--color-blue-400) 15%, transparent);
     opacity: 1;
   }
 }
@@ -712,38 +718,38 @@ body {
   100% { background-position: -100% 0; }
 }
 .animate-live-compact-bar {
-  background: linear-gradient(90deg, #0c2a3a, #38bdf8, #7dd3fc, #38bdf8, #0c2a3a);
+  background: linear-gradient(90deg, var(--color-blue-950), var(--color-blue-400), var(--color-blue-300), var(--color-blue-400), var(--color-blue-950));
   background-size: 300% 100%;
   animation: live-compact-shimmer 3s linear infinite;
 }
 
 /* Search highlight: <mark> tags from backend snippets */
 mark {
-  background: #fef08a;
-  color: #1c1917;
+  background: var(--color-amber-200);
+  color: var(--color-gray-900);
   border-radius: 2px;
   padding: 0 1px;
 }
 
 :where(.dark, .dark *) mark {
-  background: #854d0e;
-  color: #fef9c3;
+  background: var(--color-amber-800);
+  color: var(--color-amber-100);
 }
 
 /* ── Diff block: GitHub-style line backgrounds ── */
 /* CompactCodeBlock adds data-diff attributes to lines when language=diff */
 .diff-block [data-diff="add"] {
-  background: rgba(46, 160, 67, 0.15);
+  background: color-mix(in oklab, var(--color-green-600) 15%, transparent);
   display: inline-block;
   width: 100%;
 }
 .diff-block [data-diff="del"] {
-  background: rgba(248, 81, 73, 0.15);
+  background: color-mix(in oklab, var(--color-red-500) 15%, transparent);
   display: inline-block;
   width: 100%;
 }
 .diff-block [data-diff="hunk"] {
-  background: rgba(56, 139, 253, 0.1);
+  background: color-mix(in oklab, var(--color-blue-500) 10%, transparent);
   display: inline-block;
   width: 100%;
 }
@@ -777,10 +783,10 @@ mark {
   width: auto;
   height: auto;
   padding: 0.75rem 1.5rem;
-  background: #1e40af;
+  background: var(--color-blue-800);
   color: white;
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   z-index: 9999;
   outline: 2px solid white;
   outline-offset: 2px;

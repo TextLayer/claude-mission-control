@@ -95,12 +95,18 @@ export function TrendChart({ data, insight }: TrendChartProps) {
         ) : (
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={chartData} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid, #e5e7eb)" />
+              <CartesianGrid
+                strokeDasharray="3 3"
+                stroke="var(--chart-grid, var(--color-gray-200))"
+              />
               <XAxis
                 dataKey="date"
-                tick={{ fontSize: chartFontSize.axisTick, fill: 'var(--chart-text, #6b7280)' }}
+                tick={{
+                  fontSize: chartFontSize.axisTick,
+                  fill: 'var(--chart-text, var(--color-gray-500))',
+                }}
                 tickLine={false}
-                axisLine={{ stroke: 'var(--chart-axis, #d1d5db)' }}
+                axisLine={{ stroke: 'var(--chart-axis, var(--color-gray-300))' }}
                 interval="preserveStartEnd"
                 angle={data.length > 14 ? -35 : 0}
                 textAnchor={data.length > 14 ? 'end' : 'middle'}
@@ -108,15 +114,18 @@ export function TrendChart({ data, insight }: TrendChartProps) {
               />
               <YAxis
                 domain={[0, Math.ceil(maxValue * 1.1)]}
-                tick={{ fontSize: chartFontSize.axisTick, fill: 'var(--chart-text, #6b7280)' }}
+                tick={{
+                  fontSize: chartFontSize.axisTick,
+                  fill: 'var(--chart-text, var(--color-gray-500))',
+                }}
                 tickLine={false}
-                axisLine={{ stroke: 'var(--chart-axis, #d1d5db)' }}
+                axisLine={{ stroke: 'var(--chart-axis, var(--color-gray-300))' }}
                 tickFormatter={formatYAxisValue}
               />
               <Tooltip
                 contentStyle={{
                   backgroundColor: 'var(--tooltip-bg, #fff)',
-                  border: '1px solid var(--tooltip-border, #e5e7eb)',
+                  border: '1px solid var(--tooltip-border, var(--color-gray-200))',
                   borderRadius: '8px',
                   fontSize: chartFontSize.tooltip,
                 }}
@@ -136,7 +145,7 @@ export function TrendChart({ data, insight }: TrendChartProps) {
                     type="monotone"
                     dataKey="linesAdded"
                     name="Added"
-                    stroke="#22c55e"
+                    stroke="var(--color-green-500)"
                     strokeWidth={2}
                     dot={{ r: 3 }}
                     activeDot={{ r: 5 }}
@@ -145,7 +154,7 @@ export function TrendChart({ data, insight }: TrendChartProps) {
                     type="monotone"
                     dataKey="linesRemoved"
                     name="Removed"
-                    stroke="#ef4444"
+                    stroke="var(--color-red-500)"
                     strokeWidth={2}
                     dot={{ r: 3 }}
                     activeDot={{ r: 5 }}
@@ -154,7 +163,7 @@ export function TrendChart({ data, insight }: TrendChartProps) {
                     type="monotone"
                     dataKey="net"
                     name="Net"
-                    stroke="#3b82f6"
+                    stroke="var(--color-blue-500)"
                     strokeWidth={2}
                     strokeDasharray="5 5"
                     dot={{ r: 2 }}
@@ -167,7 +176,7 @@ export function TrendChart({ data, insight }: TrendChartProps) {
                   type="monotone"
                   dataKey="commits"
                   name="Commits"
-                  stroke="#8b5cf6"
+                  stroke="var(--color-violet-500)"
                   strokeWidth={2}
                   dot={{ r: 3 }}
                   activeDot={{ r: 5 }}
@@ -179,7 +188,7 @@ export function TrendChart({ data, insight }: TrendChartProps) {
                   type="monotone"
                   dataKey="sessions"
                   name="Sessions"
-                  stroke="#f59e0b"
+                  stroke="var(--color-amber-500)"
                   strokeWidth={2}
                   dot={{ r: 3 }}
                   activeDot={{ r: 5 }}

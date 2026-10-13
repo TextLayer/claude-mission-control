@@ -6,7 +6,8 @@ edition.workspace = true
 license.workspace = true
 
 [[bin]]
-name = "claude-view"
+# TextLayer fork: the installed command is `mission-control`.
+name = "mission-control"
 path = "src/main.rs"
 
 # Feature Flags for Safe Rollback

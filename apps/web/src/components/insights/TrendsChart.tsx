@@ -190,17 +190,17 @@ export function TrendsChart({
 
       <ResponsiveContainer width="100%" height={300}>
         <LineChart data={chartData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#374151" opacity={0.2} />
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--color-gray-700)" opacity={0.2} />
           <XAxis
             dataKey="date"
             tickFormatter={formatDateLabel}
-            stroke="#9CA3AF"
+            stroke="var(--color-gray-400)"
             fontSize={chartFontSize.axisTick}
             tickLine={false}
           />
           <YAxis
             tickFormatter={(v) => formatValue(v, metric)}
-            stroke="#9CA3AF"
+            stroke="var(--color-gray-400)"
             fontSize={chartFontSize.axisTick}
             tickLine={false}
             width={55}
@@ -216,38 +216,38 @@ export function TrendsChart({
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             labelFormatter={formatDateTooltip as any}
             contentStyle={{
-              backgroundColor: '#1F2937',
+              backgroundColor: 'var(--color-gray-800)',
               border: 'none',
               borderRadius: '8px',
-              color: '#F9FAFB',
+              color: 'var(--color-gray-50)',
               fontSize: chartFontSize.tooltip,
             }}
-            itemStyle={{ color: '#F9FAFB' }}
-            labelStyle={{ color: '#9CA3AF', marginBottom: '4px' }}
+            itemStyle={{ color: 'var(--color-gray-50)' }}
+            labelStyle={{ color: 'var(--color-gray-400)', marginBottom: '4px' }}
           />
           <ReferenceLine
             y={average}
-            stroke="#9CA3AF"
+            stroke="var(--color-gray-400)"
             strokeDasharray="5 5"
             label={{
               value: `Avg: ${formatValue(average, metric)}`,
               position: 'right',
-              fill: '#9CA3AF',
+              fill: 'var(--color-gray-400)',
               fontSize: chartFontSize.annotation,
             }}
           />
           <Line
             type="monotone"
             dataKey="value"
-            stroke="#3B82F6"
+            stroke="var(--color-blue-500)"
             strokeWidth={2}
-            dot={{ fill: '#3B82F6', strokeWidth: 2, r: 3 }}
-            activeDot={{ r: 5, stroke: '#3B82F6', strokeWidth: 2 }}
+            dot={{ fill: 'var(--color-blue-500)', strokeWidth: 2, r: 3 }}
+            activeDot={{ r: 5, stroke: 'var(--color-blue-500)', strokeWidth: 2 }}
           />
           <Line
             type="linear"
             dataKey="trendValue"
-            stroke="#F59E0B"
+            stroke="var(--color-amber-500)"
             strokeWidth={1}
             strokeDasharray="5 5"
             dot={false}

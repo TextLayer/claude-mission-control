@@ -3,10 +3,11 @@
 // =============================================================================
 
 /// Check if a process is the claude-view binary (not sidecar, not a directory match).
-/// Requires the process name itself to be "claude-view" — pure substring matching
-/// on the command line would false-positive on paths like `/backup/claude-view-old/`.
+/// Requires the process name itself to be "claude-view" (or "mission-control", the
+/// TextLayer fork's binary name) — pure substring matching on the command line
+/// would false-positive on paths like `/backup/claude-view-old/`.
 pub(super) fn is_claude_view_binary(name: &str, cmd: &str) -> bool {
-    name == "claude-view" && !cmd.contains("sidecar/dist/index.js")
+    matches!(name, "claude-view" | "mission-control") && !cmd.contains("sidecar/dist/index.js")
 }
 
 /// Check if a process named "claude" is actually from the Anthropic Claude package.

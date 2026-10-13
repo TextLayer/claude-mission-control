@@ -35,7 +35,7 @@ function ChatWatermark(_props: IWatermarkPanelProps) {
     <div className="flex items-center justify-center h-full">
       <div className="w-full max-w-2xl px-4">
         <p className="text-center text-sm text-gray-400 dark:text-gray-500 mb-4">
-          Select a session from the sidebar, or start a new conversation.
+          Select a session from the sidebar.
         </p>
       </div>
     </div>

@@ -151,6 +151,11 @@ fn is_claude_view_binary_helper_cases() {
         "claude-view",
         "/usr/local/bin/claude-view serve"
     ));
+    // TextLayer fork binary name.
+    assert!(is_claude_view_binary(
+        "mission-control",
+        "/Users/test/.mission-control/bin/mission-control"
+    ));
     assert!(!is_claude_view_binary(
         "bash",
         "/home/user/claude-view-backup/script.sh"

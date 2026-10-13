@@ -5,9 +5,9 @@ import type { CategoryNode } from '../../types/generated/CategoryNode'
 
 // Color mapping for L1 categories
 const CATEGORY_COLORS: Record<string, string> = {
-  code_work: '#3B82F6',
-  support_work: '#10B981',
-  thinking_work: '#8B5CF6',
+  code_work: 'var(--color-blue-500)',
+  support_work: 'var(--color-emerald-500)',
+  thinking_work: 'var(--color-violet-500)',
 }
 
 interface BarChartProps {
@@ -104,7 +104,7 @@ export function CategoryBarChart({ data, onCategoryClick, selectedCategory }: Ba
             {flatData.map((entry) => (
               <Cell
                 key={entry.id}
-                fill={CATEGORY_COLORS[entry.rootId] ?? '#6B7280'}
+                fill={CATEGORY_COLORS[entry.rootId] ?? 'var(--color-gray-500)'}
                 opacity={selectedCategory === entry.id ? 1 : 0.8}
               />
             ))}

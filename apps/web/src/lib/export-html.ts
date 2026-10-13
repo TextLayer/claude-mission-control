@@ -475,7 +475,7 @@ function renderMessage(message: Message, thread?: ThreadInfo): string {
 // ---------------------------------------------------------------------------
 
 const CSS = `
-/* Geist is self-hosted in-app; exported HTML falls back to system fonts */
+/* Inter is self-hosted in-app; exported HTML uses it if installed, else system fonts */
 
 * {
   box-sizing: border-box;
@@ -490,33 +490,33 @@ html {
 /* Light theme (default) */
 :root {
   --bg-primary: #ffffff;
-  --bg-secondary: #f8fafc;
-  --bg-tertiary: #f1f5f9;
-  --text-primary: #0f172a;
-  --text-secondary: #475569;
-  --text-muted: #94a3b8;
-  --border-primary: #e2e8f0;
-  --border-secondary: #cbd5e1;
-  --link-color: #3b82f6;
-  --link-hover: #1d4ed8;
+  --bg-secondary: #F8F6F5;
+  --bg-tertiary: #F0EEEC;
+  --text-primary: #0B0D10;
+  --text-secondary: #4C4A48;
+  --text-muted: #A19E9A;
+  --border-primary: #E6E4E1;
+  --border-secondary: #DAD7D4;
+  --link-color: #0077EC;
+  --link-hover: #0058B1;
 
   /* Accent colors (matching TYPE_CONFIG in MessageTyped.tsx) */
-  --accent-user: #3b82f6;
-  --accent-assistant: #f97316;
-  --accent-tool_use: #a855f7;
-  --accent-tool_result: #22c55e;
-  --accent-system: #f59e0b;
-  --accent-progress: #6366f1;
-  --accent-summary: #f43f5e;
+  --accent-user: #0077EC;
+  --accent-assistant: #DE8658;
+  --accent-tool_use: #986DDA;
+  --accent-tool_result: #6BBA7E;
+  --accent-system: #DC932E;
+  --accent-progress: #676FD3;
+  --accent-summary: #DE605A;
 
   /* Badge backgrounds (light pastels) */
-  --badge-user: #dbeafe;
-  --badge-assistant: #ffedd5;
-  --badge-tool_use: #f3e8ff;
-  --badge-tool_result: #dcfce7;
-  --badge-system: #fef3c7;
-  --badge-progress: #e0e7ff;
-  --badge-summary: #ffe4e6;
+  --badge-user: #DDEAFA;
+  --badge-assistant: #F6EFE4;
+  --badge-tool_use: #EFEBF8;
+  --badge-tool_result: #EBF6ED;
+  --badge-system: #FEF0E1;
+  --badge-progress: #E3E7F5;
+  --badge-summary: #F7E7E6;
 
   /* Code (always dark) */
   --code-bg: #1e1e2e;
@@ -525,51 +525,51 @@ html {
   --code-header-bg: #181825;
 
   /* Thinking */
-  --thinking-bg: #eef2ff;
-  --thinking-border: #c7d2fe;
-  --thinking-text: #4338ca;
+  --thinking-bg: #F0F2FA;
+  --thinking-border: #CCD3EE;
+  --thinking-text: #4444B4;
 
   /* Branch badge */
-  --branch-bg: #f0fdf4;
-  --branch-text: #166534;
-  --branch-border: #bbf7d0;
+  --branch-bg: #F6FAF7;
+  --branch-text: #2D623B;
+  --branch-border: #D9ECDC;
 }
 
 /* Dark theme */
 [data-theme="dark"] {
-  --bg-primary: #0f172a;
-  --bg-secondary: #1e293b;
-  --bg-tertiary: #334155;
-  --text-primary: #f8fafc;
-  --text-secondary: #cbd5e1;
-  --text-muted: #64748b;
-  --border-primary: #334155;
-  --border-secondary: #475569;
-  --link-color: #60a5fa;
-  --link-hover: #93bbfd;
+  --bg-primary: #0B0D10;
+  --bg-secondary: #131210;
+  --bg-tertiary: #343230;
+  --text-primary: #F8F6F5;
+  --text-secondary: #DAD7D4;
+  --text-muted: #737373;
+  --border-primary: #343230;
+  --border-secondary: #4C4A48;
+  --link-color: #73A6E9;
+  --link-hover: #9CC3F8;
 
   /* Badge backgrounds (dark mode) */
-  --badge-user: rgba(59,130,246,0.15);
-  --badge-assistant: rgba(249,115,22,0.15);
-  --badge-tool_use: rgba(168,85,247,0.15);
-  --badge-tool_result: rgba(34,197,94,0.15);
-  --badge-system: rgba(245,158,11,0.15);
-  --badge-progress: rgba(99,102,241,0.15);
-  --badge-summary: rgba(244,63,94,0.15);
+  --badge-user: rgba(0,119,236,0.15);
+  --badge-assistant: rgba(222,134,88,0.15);
+  --badge-tool_use: rgba(152,109,218,0.15);
+  --badge-tool_result: rgba(107,186,126,0.15);
+  --badge-system: rgba(220,147,46,0.15);
+  --badge-progress: rgba(103,111,211,0.15);
+  --badge-summary: rgba(222,96,90,0.15);
 
   /* Thinking */
-  --thinking-bg: rgba(99,102,241,0.1);
-  --thinking-border: #6366f1;
-  --thinking-text: #a5b4fc;
+  --thinking-bg: rgba(103,111,211,0.1);
+  --thinking-border: #676FD3;
+  --thinking-text: #ACB6E4;
 
   /* Branch badge */
-  --branch-bg: rgba(34,197,94,0.15);
-  --branch-text: #86efac;
-  --branch-border: rgba(34,197,94,0.3);
+  --branch-bg: rgba(107,186,126,0.15);
+  --branch-text: #BCDFC2;
+  --branch-border: rgba(107,186,126,0.3);
 }
 
 body {
-  font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-size: 14px;
   line-height: 1.6;
   color: var(--text-primary);
@@ -593,7 +593,7 @@ body {
 .doc-header {
   background: var(--bg-primary);
   border: 1px solid var(--border-primary);
-  border-radius: 12px;
+  border-radius: 4px;
   padding: 24px;
   margin-bottom: 24px;
 }
@@ -704,7 +704,7 @@ body {
 .message-icon {
   width: 32px;
   height: 32px;
-  border-radius: 6px;
+  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -825,7 +825,7 @@ body {
 .code-block {
   background-color: var(--code-bg);
   border: 1px solid var(--code-border);
-  border-radius: 8px;
+  border-radius: 4px;
   overflow: hidden;
   margin: 12px 0;
 }
@@ -859,7 +859,7 @@ body {
 .thinking-block {
   background: var(--thinking-bg);
   border: 1px solid var(--thinking-border);
-  border-radius: 8px;
+  border-radius: 4px;
   margin-bottom: 12px;
   overflow: hidden;
 }
@@ -928,7 +928,7 @@ body {
   max-width: 100%;
   height: auto;
   max-height: 480px;
-  border-radius: 8px;
+  border-radius: 4px;
   border: 1px solid var(--border-primary);
 }
 
@@ -951,7 +951,7 @@ body {
   margin-top: 12px;
   background-color: var(--bg-secondary);
   border: 1px solid var(--border-primary);
-  border-radius: 8px;
+  border-radius: 4px;
 }
 
 .tool-summary {
@@ -972,7 +972,7 @@ body {
 
 .tool-summary:hover {
   background-color: var(--bg-tertiary);
-  border-radius: 8px;
+  border-radius: 4px;
 }
 
 .tool-calls summary::before {
@@ -1063,24 +1063,24 @@ body {
 @media print {
   :root {
     --bg-primary: #ffffff !important;
-    --bg-secondary: #f8fafc !important;
-    --bg-tertiary: #f1f5f9 !important;
-    --text-primary: #0f172a !important;
-    --text-secondary: #475569 !important;
-    --text-muted: #94a3b8 !important;
-    --border-primary: #e2e8f0 !important;
-    --border-secondary: #cbd5e1 !important;
+    --bg-secondary: #F8F6F5 !important;
+    --bg-tertiary: #F0EEEC !important;
+    --text-primary: #0B0D10 !important;
+    --text-secondary: #4C4A48 !important;
+    --text-muted: #A19E9A !important;
+    --border-primary: #E6E4E1 !important;
+    --border-secondary: #DAD7D4 !important;
   }
 
   [data-theme="dark"] {
     --bg-primary: #ffffff !important;
-    --bg-secondary: #f8fafc !important;
-    --bg-tertiary: #f1f5f9 !important;
-    --text-primary: #0f172a !important;
-    --text-secondary: #475569 !important;
-    --text-muted: #94a3b8 !important;
-    --border-primary: #e2e8f0 !important;
-    --border-secondary: #cbd5e1 !important;
+    --bg-secondary: #F8F6F5 !important;
+    --bg-tertiary: #F0EEEC !important;
+    --text-primary: #0B0D10 !important;
+    --text-secondary: #4C4A48 !important;
+    --text-muted: #A19E9A !important;
+    --border-primary: #E6E4E1 !important;
+    --border-secondary: #DAD7D4 !important;
   }
 
   body {
@@ -1231,7 +1231,7 @@ export function generateStandaloneHtml(messages: Message[], metadata?: ExportMet
       ${messagesHtml}
     </div>
     <div class="doc-footer">
-      Exported from <a href="https://github.com/tombelieber/claude-view" target="_blank" rel="noopener noreferrer">claude-view</a>
+      Exported from <a href="https://www.textlayer.ai" target="_blank" rel="noopener noreferrer">TextLayer Mission Control</a>
     </div>
   </div>
   <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">

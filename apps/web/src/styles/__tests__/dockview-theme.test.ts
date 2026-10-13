@@ -23,12 +23,12 @@ describe('dockview-theme.css — sash styling', () => {
     expect(css).toContain('margin: -6px')
   })
 
-  it('has hover state with blue glow', () => {
-    expect(css).toMatch(/\.dv-sash.*:hover[\s\S]*box-shadow.*59, 130, 246/)
+  it('has hover state with cobalt glow', () => {
+    expect(css).toMatch(/\.dv-sash.*:hover[\s\S]*box-shadow.*var\(--color-blue-500\)/)
   })
 
-  it('has active (dragging) state with green accent', () => {
-    expect(css).toMatch(/\.dv-sash.*:active[\s\S]*#3FB950/)
+  it('has active (dragging) state with cobalt accent', () => {
+    expect(css).toMatch(/\.dv-sash.*:active[\s\S]*background-color: var\(--color-blue-500\)/)
   })
 
   it('has dark mode sash overrides', () => {
@@ -52,12 +52,12 @@ describe('dockview-theme.css — light/dark mode', () => {
     expect(css).toContain('--dv-group-view-background-color: #ffffff')
   })
 
-  it('defines dark mode panel body as GitHub dark', () => {
-    expect(css).toContain('--dv-group-view-background-color: #0D1117')
+  it('defines dark mode panel body as the ink canvas', () => {
+    expect(css).toContain('--dv-group-view-background-color: var(--color-gray-950)')
   })
 
-  it('active tab underline is blue in both modes', () => {
-    const matches = css.match(/--dv-active-tab-border-bottom-color: #3B82F6/g)
+  it('active tab underline is cobalt in both modes', () => {
+    const matches = css.match(/--dv-active-tab-border-bottom-color: var\(--color-blue-500\)/g)
     expect(matches?.length).toBeGreaterThanOrEqual(2)
   })
 })

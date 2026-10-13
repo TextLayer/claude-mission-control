@@ -80,8 +80,8 @@ describe('Sidebar three-zone architecture', () => {
 
       const nav = screen.getByRole('navigation', { name: /main navigation/i })
       const liveMonitorLink = within(nav).getByText('Live Monitor').closest('a')
-      // Active link uses bg-blue-500 text-white
-      expect(liveMonitorLink?.className).toContain('bg-blue-500')
+      // Active link uses the TextLayer ink marker (bg-gray-900 text-white)
+      expect(liveMonitorLink?.className).toContain('bg-gray-900')
     })
 
     it('highlights Sessions link when on /sessions route', () => {
@@ -89,7 +89,7 @@ describe('Sidebar three-zone architecture', () => {
 
       const nav = screen.getByRole('navigation', { name: /main navigation/i })
       const sessionsLink = within(nav).getByText('Sessions').closest('a')
-      expect(sessionsLink?.className).toContain('bg-blue-500')
+      expect(sessionsLink?.className).toContain('bg-gray-900')
     })
 
     it('nav links preserve scope params when project is selected', () => {

@@ -246,27 +246,36 @@ function CostTrendChart({
           <AreaChart data={chartData} margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
             <defs>
               <linearGradient id="costGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#22c55e" stopOpacity={0.2} />
-                <stop offset="95%" stopColor="#22c55e" stopOpacity={0} />
+                <stop offset="5%" stopColor="var(--color-green-500)" stopOpacity={0.2} />
+                <stop offset="95%" stopColor="var(--color-green-500)" stopOpacity={0} />
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid, #e5e7eb)" />
+            <CartesianGrid
+              strokeDasharray="3 3"
+              stroke="var(--chart-grid, var(--color-gray-200))"
+            />
             <XAxis
               dataKey="date"
-              tick={{ fontSize: chartFontSize.axisTick, fill: 'var(--chart-text, #6b7280)' }}
+              tick={{
+                fontSize: chartFontSize.axisTick,
+                fill: 'var(--chart-text, var(--color-gray-500))',
+              }}
               tickLine={false}
-              axisLine={{ stroke: 'var(--chart-axis, #d1d5db)' }}
+              axisLine={{ stroke: 'var(--chart-axis, var(--color-gray-300))' }}
             />
             <YAxis
-              tick={{ fontSize: chartFontSize.axisTick, fill: 'var(--chart-text, #6b7280)' }}
+              tick={{
+                fontSize: chartFontSize.axisTick,
+                fill: 'var(--chart-text, var(--color-gray-500))',
+              }}
               tickLine={false}
-              axisLine={{ stroke: 'var(--chart-axis, #d1d5db)' }}
+              axisLine={{ stroke: 'var(--chart-axis, var(--color-gray-300))' }}
               tickFormatter={(v) => formatCostUsd(v as number)}
             />
             <RechartsTooltip
               contentStyle={{
                 backgroundColor: 'var(--tooltip-bg, #fff)',
-                border: '1px solid var(--tooltip-border, #e5e7eb)',
+                border: '1px solid var(--tooltip-border, var(--color-gray-200))',
                 borderRadius: '8px',
                 fontSize: chartFontSize.tooltip,
               }}
@@ -275,10 +284,10 @@ function CostTrendChart({
             <Area
               type="monotone"
               dataKey="value"
-              stroke="#22c55e"
+              stroke="var(--color-green-500)"
               strokeWidth={2}
               fill="url(#costGradient)"
-              dot={{ r: 3, fill: '#22c55e' }}
+              dot={{ r: 3, fill: 'var(--color-green-500)' }}
               activeDot={{ r: 5 }}
             />
           </AreaChart>

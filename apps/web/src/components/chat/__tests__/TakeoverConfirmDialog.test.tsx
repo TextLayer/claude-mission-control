@@ -14,8 +14,8 @@ describe('TakeoverConfirmDialog', () => {
   it('renders confirmation title and description', () => {
     render(<TakeoverConfirmDialog open onConfirm={vi.fn()} onCancel={vi.fn()} />)
 
-    expect(screen.getByText('Continue in Claude View?')).toBeInTheDocument()
-    expect(screen.getByText(/started outside claude-view/i)).toBeInTheDocument()
+    expect(screen.getByText('Continue in Mission Control?')).toBeInTheDocument()
+    expect(screen.getByText(/started outside Mission Control/i)).toBeInTheDocument()
   })
 
   it('dontRemind checkbox sets localStorage on confirm', () => {

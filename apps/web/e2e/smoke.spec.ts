@@ -16,8 +16,8 @@ test.describe('Smoke Tests', () => {
     await page.waitForTimeout(2000)
     await page.screenshot({ path: 'e2e/screenshots/01-home.png' })
 
-    // Verify basic UI elements - check for the title (Claude View)
-    await expect(page).toHaveTitle(/Claude View/i)
+    // Verify basic UI elements - check for the title (TextLayer Mission Control)
+    await expect(page).toHaveTitle(/TextLayer Mission Control/i)
 
     // Try to click first project in sidebar if exists
     // Projects are rendered as treeitem role elements in the sidebar

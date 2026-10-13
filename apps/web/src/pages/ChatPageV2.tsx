@@ -64,16 +64,6 @@ function makeSessionPanelArgs(sid: string, cachedSessions: SessionInfo[], live: 
   }
 }
 
-/** Build addPanel args for a blank "New Chat" tab. */
-function makeNewChatPanelArgs() {
-  return {
-    id: `chat-new-${Date.now()}`,
-    component: 'chat' as const,
-    title: 'New Chat',
-    params: { sessionId: '' },
-  }
-}
-
 export function ChatPageV2() {
   // Read layout ONCE on mount from the store snapshot — not as a reactive
   // selector. Reactive would re-render on every save, which risks dockview
@@ -124,10 +114,9 @@ export function ChatPageV2() {
         )
         if (added && !added.api.isActive) added.api.setActive()
       }
-    } else if (api.panels.length === 0) {
-      // No saved layout and no URL session → blank panel
-      api.addPanel(makeNewChatPanelArgs())
     }
+    // No saved layout and no URL session → the watermark asks the user to pick
+    // a session. Mission Control never starts sessions itself.
     // eslint-disable-next-line react-hooks/exhaustive-deps -- all mutable values via refs; identity must be stable for dockview
   }, [])
 
@@ -152,16 +141,6 @@ export function ChatPageV2() {
     [liveSessionsList, queryClient],
   )
 
-  const openNewChat = useCallback(() => {
-    const api = dockApiRef.current
-    if (!api) return
-    const args = makeNewChatPanelArgs()
-    api.addPanel(args)
-    // Look up by ID — dockview doesn't guarantee insertion order in api.panels
-    const added = api.panels.find((p) => p.id === args.id)
-    if (added && !added.api.isActive) added.api.setActive()
-  }, [])
-
   // Handle subsequent URL navigation (e.g. clicking sidebar → /chat/:sessionId).
   // Initial mount + layout restoration is handled by dockview's fromJSON + handleDockReady.
   const lastOpenedRef = useRef<string | null>(null)
@@ -172,7 +151,7 @@ export function ChatPageV2() {
   }, [sessionId, openSession])
 
   // Sync live data into existing tab params when SSE ticks.
-  // Panels are only created via explicit user action (sidebar click, CLI button).
+  // Panels are only created via explicit user action (sidebar click).
   // Same pattern as LiveMonitorPage: SSE drives data, user drives selection.
   useEffect(() => {
     const api = dockApiRef.current
@@ -236,11 +215,7 @@ export function ChatPageV2() {
 
   return (
     <div className="flex h-full overflow-hidden">
-      <SessionSidebar
-        liveSessions={liveSessionsList}
-        onNewChat={openNewChat}
-        onCliSessionCreated={openSession}
-      />
+      <SessionSidebar liveSessions={liveSessionsList} />
       <div className="flex-1 min-w-0 flex flex-col overflow-hidden">
         <ChatDockLayout
           initialLayout={savedLayout}

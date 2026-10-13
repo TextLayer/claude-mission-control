@@ -4,14 +4,14 @@ import type { ProjectActivity } from '../../lib/activity-utils'
 import { formatHumanDuration } from '../../lib/format-utils'
 
 const BAR_COLORS = [
-  '#3b82f6', // blue-500
-  '#8b5cf6', // violet-500
-  '#06b6d4', // cyan-500
-  '#f59e0b', // amber-500
-  '#10b981', // emerald-500
-  '#ef4444', // red-500
-  '#ec4899', // pink-500
-  '#6b7280', // gray-500
+  'var(--color-blue-500)', // blue-500
+  'var(--color-violet-500)', // violet-500
+  'var(--color-cyan-500)', // cyan-500
+  'var(--color-amber-500)', // amber-500
+  'var(--color-emerald-500)', // emerald-500
+  'var(--color-red-500)', // red-500
+  'var(--color-violet-300)', // violet-300 (pink now shares coral with red)
+  'var(--color-gray-500)', // gray-500
 ]
 
 interface ProjectBreakdownProps {

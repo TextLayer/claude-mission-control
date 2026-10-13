@@ -1,50 +1,28 @@
 <div align="center">
 
-# claude-view
+# TextLayer Mission Control
 
-**Mission Control for Claude Code**
-
-You have 10 AI agents running. One finished 12 minutes ago. Another hit its context limit. A third needs tool approval. You're <kbd>Cmd</kbd>+<kbd>Tab</kbd>-bing through terminals, burning $200/mo blind.
+**Mission Control for Claude Code, by [TextLayer](https://www.textlayer.ai)**
 
 <p>
-  <a href="https://www.npmjs.com/package/claude-view"><img src="https://img.shields.io/npm/v/claude-view.svg" alt="npm version"></a>
-  <a href="https://claudeview.ai"><img src="https://img.shields.io/badge/docs-claudeview.ai-orange" alt="Website"></a>
-  <a href="https://www.npmjs.com/package/@claude-view/plugin"><img src="https://img.shields.io/npm/v/@claude-view/plugin.svg?label=plugin" alt="plugin version"></a>
+  <a href="https://github.com/TextLayer/claude-mission-control/releases/latest"><img src="https://img.shields.io/github/v/release/TextLayer/claude-mission-control?label=release" alt="Latest release"></a>
   <a href="./LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
-  <img src="https://img.shields.io/badge/Platform-macOS-lightgrey.svg" alt="macOS">
-  <a href="https://discord.gg/G7wdZTpRfu"><img src="https://img.shields.io/discord/1325420051266592859?color=5865F2&logo=discord&logoColor=white&label=Discord" alt="Discord"></a>
-  <a href="https://github.com/tombelieber/claude-view/stargazers"><img src="https://img.shields.io/github/stars/tombelieber/claude-view?style=social" alt="GitHub stars"></a>
-</p>
-
-<p>
-  <a href="./README.md">English</a> ·
-  <a href="./README.zh-TW.md">繁體中文</a> ·
-  <a href="./README.zh-CN.md">简体中文</a> ·
-  <a href="./README.ja.md">日本語</a> ·
-  <a href="./README.es.md">Español</a> ·
-  <a href="./README.fr.md">Français</a> ·
-  <a href="./README.de.md">Deutsch</a> ·
-  <a href="./README.pt.md">Português</a> ·
-  <a href="./README.it.md">Italiano</a> ·
-  <a href="./README.ko.md">한국어</a> ·
-  <a href="./README.nl.md">Nederlands</a>
+  <img src="https://img.shields.io/badge/Platform-macOS%20%7C%20Linux-lightgrey.svg" alt="macOS and Linux">
 </p>
 
 ```bash
-curl -fsSL https://get.claudeview.ai/install.sh | sh
+curl -fsSL https://github.com/TextLayer/claude-mission-control/releases/latest/download/install.sh | sh
 ```
-
-**One command. Every session visible. Real-time.**
 
 </div>
 
 ---
 
-## What Is claude-view?
+## What Is Mission Control?
 
-claude-view is an open-source dashboard that monitors every Claude Code session on your machine — live agents, past conversations, costs, sub-agents, hooks, tool calls — in one place. Rust backend, React frontend, ~10 MB binary. Zero config, zero accounts, local-first — your sessions, code and prompts never leave your machine ([anonymous usage analytics](#privacy--telemetry) in official builds; one-command opt-out; source builds send nothing).
+Mission Control is a local dashboard for every Claude Code session on your machine: live agents, past conversations, costs, sub-agents, hooks and tool calls, in one place. You keep starting sessions wherever you do today (terminal, IDE, Agent SDK); Mission Control watches them. It's a Rust server with a React web app, installed from this repo's GitHub Releases, and nothing it reads leaves your machine.
 
-**50+ releases. 85 MCP tools. 9 skills. One `npx claude-view`.**
+It's TextLayer's fork of [claude-view](https://github.com/tombelieber/claude-view) by Tom Tang (MIT).
 
 ---
 
@@ -84,13 +62,12 @@ Read, search, and interact with any session — live or historical.
 | **Hook events inline** | Pre/post tool hooks rendered as conversation blocks — see hooks firing alongside the conversation |
 | **Export** | Markdown export for context resumption or sharing |
 | **Bulk select & archive** | Select multiple sessions for batch archiving with persistent filter state |
-| **Encrypted sharing** | Share any session via E2E encrypted link — AES-256-GCM, zero server trust, key lives only in the URL fragment |
 
 ---
 
 ## Agent Internals
 
-Claude Code does a lot behind `"thinking..."` that never shows in your terminal. claude-view exposes all of it.
+Claude Code does a lot behind `"thinking..."` that never shows in your terminal. Mission Control exposes all of it.
 
 | Feature | What it does |
 |---------|-------------|
@@ -203,52 +180,6 @@ Run a local LLM for session phase classification — no API calls, no extra cost
 
 ---
 
-## Plugin
-
-`@claude-view/plugin` gives Claude native access to your dashboard data — 85 MCP tools, 9 skills, and auto-start.
-
-```bash
-claude plugin marketplace add tombelieber/claude-view
-claude plugin install claude-view
-```
-
-### Auto-start
-
-Every Claude Code session automatically starts the dashboard. No manual `npx claude-view` needed.
-
-### 85 MCP tools
-
-8 hand-crafted tools with optimized output for Claude:
-
-| Tool | Description |
-|------|-------------|
-| `list_sessions` | Browse sessions with filters |
-| `get_session` | Full session detail with messages and metrics |
-| `search_sessions` | Grep search across all conversations |
-| `get_stats` | Dashboard overview — total sessions, costs, trends |
-| `get_fluency_score` | AI Fluency Score (0-100) with breakdown |
-| `get_token_stats` | Token usage with cache hit ratio |
-| `list_live_sessions` | Currently running agents (real-time) |
-| `get_live_summary` | Aggregate cost and status for today |
-
-Plus **77 auto-generated tools** from the OpenAPI spec across 26 categories (contributions, insights, coaching, exports, workflows, and more).
-
-### 9 Skills
-
-| Skill | What it does |
-|-------|-------------|
-| `/session-recap` | Summarize a specific session — commits, metrics, duration |
-| `/daily-cost` | Today's spending, running sessions, token usage |
-| `/standup` | Multi-session work log for standup updates |
-| `/coaching` | AI coaching tips and custom rule management |
-| `/insights` | Behavioral pattern analysis |
-| `/project-overview` | Project summary across sessions |
-| `/search` | Natural language search |
-| `/export-data` | Export sessions to CSV/JSON |
-| `/team-status` | Team activity overview |
-
----
-
 ## Workflows
 
 | Feature | What it does |
@@ -278,8 +209,8 @@ Plus **77 auto-generated tools** from the OpenAPI spec across 26 categories (con
 | **Fast** | Rust backend with SIMD-accelerated JSONL parsing, memory-mapped I/O — indexes thousands of sessions in seconds |
 | **Real-time** | File watcher + SSE + multiplexed WebSocket with heartbeat, event replay, and crash recovery |
 | **Tiny** | ~10 MB download, ~27 MB on disk. No runtime dependencies, no background daemons |
-| **Local-first** | Your sessions, code & prompts never leave your machine. Official builds send anonymous feature-usage analytics (no content, ever) — opt out with `CLAUDE_VIEW_TELEMETRY=0`; source builds send nothing. Zero required accounts |
-| **Zero config** | `npx claude-view` and you're done. No API keys, no setup, no accounts |
+| **Local-first** | Your sessions, code & prompts never leave your machine. No analytics, no accounts |
+| **Zero config** | One install command and you're done. No API keys, no setup, no accounts |
 | **FSM-driven** | Chat sessions run on a finite state machine with explicit phases and typed events — deterministic, race-free |
 
 <details>
@@ -288,7 +219,7 @@ Plus **77 auto-generated tools** from the OpenAPI spec across 26 categories (con
 
 Measured on an M-series Mac with 1,493 sessions across 26 projects:
 
-| Metric | claude-view | Typical Electron dashboard |
+| Metric | Mission Control | Typical Electron dashboard |
 |--------|:-----------:|:--------------------------:|
 | **Download** | **~10 MB** | 150-300 MB |
 | **On disk** | **~27 MB** | 300-500 MB |
@@ -303,59 +234,51 @@ Key techniques: SIMD pre-filter (`memchr`), memory-mapped JSONL parsing, ripgrep
 
 ---
 
-## How It Compares
+## Privacy
 
-| Tool | Category | Stack | Size | Live monitor | Multi-session chat | Search | Analytics | MCP tools |
-|------|----------|-------|:----:|:------------:|:------------------:|:------:|:---------:|:---------:|
-| **[claude-view](https://github.com/tombelieber/claude-view)** | Monitor + workspace | Rust | **~10 MB** | **Yes** | **Yes** | **Yes** | **Yes** | **85** |
-| [opcode](https://github.com/winfunc/opcode) | GUI + session manager | Tauri 2 | ~13 MB | Partial | No | No | Yes | No |
-| [ccusage](https://github.com/ryoppippi/ccusage) | CLI usage tracker | TypeScript | ~600 KB | No | No | No | CLI | No |
-| [CodePilot](https://github.com/op7418/CodePilot) | Desktop chat UI | Electron | ~140 MB | No | No | No | No | No |
-| [claude-run](https://github.com/kamranahmedse/claude-run) | History viewer | TypeScript | ~500 KB | Partial | No | Basic | No | No |
+Mission Control is local-only. **Your sessions, code, prompts, file paths and project names never leave your machine.**
 
-> Chat UIs (CodePilot, CUI, claude-code-webui) are interfaces *for* Claude Code. claude-view is a dashboard that watches your existing terminal sessions. They're complementary.
-
----
-
-## Privacy & Telemetry
-
-claude-view is local-first. **Your sessions, code, prompts, file paths and project names never leave your machine** (the only exception is the encrypted Share feature, which you trigger explicitly).
-
-To guide development with real data — instead of guessing — **official builds send anonymous usage analytics on by default**. This is how the prebuilt binary is distributed:
-
-| Build | Telemetry |
-|-------|-----------|
-| `npx claude-view` · `curl … install.sh \| sh` (official binary) | **On by default** — anonymous, one-time notice on first run, opt out anytime |
-| Built from source (`cargo build`) | **Off, always** — no analytics key is compiled in; there is no code path that can send |
-| `CLAUDE_VIEW_TELEMETRY=0` or CI detected | **Off** — hard override, beats everything |
-
-**What is collected** (official builds, until you opt out): which feature/screen was opened, high-intent action counts, app version, OS/platform, install source, a daily active ping, and a random per-install UUID.
-
-**What is *never* collected:** code, prompts, message/session content, file paths, project or repo names, branch names, environment variables, API keys, IP/geo, or anything tied to your identity. This is enforced by a **closed event schema in the type system** — an event physically cannot carry a path or prompt — not just by policy.
-
-**Opt out** (takes effect immediately, permanently):
-
-```bash
-export CLAUDE_VIEW_TELEMETRY=0      # or set it in your shell profile
-```
-
-…or use the toggle in **Settings → Telemetry**. Full detail: [claudeview.ai/privacy](https://claudeview.ai/privacy).
-
-Why default-on for official builds? With thousands of anonymous installs and zero signal, every product decision is a guess. Anonymous, content-free usage counts let the project build what people actually use. This is the same model Next.js, Astro, Homebrew and VS Code use. If you'd rather send nothing, the opt-out above is one line and source builds never send at all.
+Release builds are made with `./scripts/release.sh`, which compiles in no analytics key and no sign-in, share or mobile-relay servers, so there is no code path that sends usage data anywhere. (Upstream claude-view's official builds send anonymous analytics; ours don't.)
 
 ---
 
 ## Installation
 
-| Method | Command |
-|--------|---------|
-| **Shell** (recommended) | `curl -fsSL https://get.claudeview.ai/install.sh \| sh` |
-| **npx** | `npx claude-view` |
-| **Plugin** (auto-start) | `claude plugin marketplace add tombelieber/claude-view && claude plugin install claude-view` |
+**Requirements:** macOS or Linux, and [Claude Code](https://docs.anthropic.com/en/docs/claude-code). [Node.js](https://nodejs.org) is only needed to resume or take over sessions from the dashboard.
 
-The shell installer downloads a pre-built binary (~10 MB), installs to `~/.claude-view/bin`, and adds it to your PATH. Then just run `claude-view`.
+### One-line install (recommended)
 
-**Only requirement:** [Claude Code](https://docs.anthropic.com/en/docs/claude-code) installed.
+```bash
+curl -fsSL https://github.com/TextLayer/claude-mission-control/releases/latest/download/install.sh | sh
+```
+
+The installer downloads the build for your platform from the [latest release](https://github.com/TextLayer/claude-mission-control/releases/latest), checks it against the release's `checksums.txt`, installs it to `~/.mission-control/bin`, and adds that to your PATH. Then run:
+
+```bash
+mission-control
+```
+
+The dashboard opens at [http://localhost:47892](http://localhost:47892).
+
+| Env variable | Default | Description |
+|-------------|---------|-------------|
+| `MISSION_CONTROL_VERSION` | latest | Install a specific version, e.g. `1.0.0` |
+| `MISSION_CONTROL_INSTALL_DIR` | `~/.mission-control` | Install somewhere else |
+
+### Manual download
+
+1. Download `mission-control-<platform>.tar.gz` for your machine from the [Releases page](https://github.com/TextLayer/claude-mission-control/releases): `darwin-arm64` (Apple Silicon Mac), `darwin-x64` (Intel Mac), `linux-x64` or `linux-arm64`.
+2. Unpack it into a folder and run `./mission-control` from that folder. Keep the `dist/` and `sidecar/` folders next to the binary.
+3. **macOS:** the builds aren't signed by Apple, so a browser download is blocked on first run. Clear the quarantine flag first:
+
+   ```bash
+   xattr -dr com.apple.quarantine <folder>
+   ```
+
+### Update and uninstall
+
+- **Update:** run the install command again.
+- **Uninstall:** run `mission-control cleanup` (removes the hooks it added to Claude Code), then delete `~/.mission-control` and the `# TextLayer Mission Control` PATH line from your shell profile. Your indexed data lives in `~/.claude-view`; delete that too to remove everything.
 
 <details>
 <summary><strong>Configuration</strong></summary>
@@ -364,24 +287,6 @@ The shell installer downloads a pre-built binary (~10 MB), installs to `~/.claud
 | Env Variable | Default | Description |
 |-------------|---------|-------------|
 | `CLAUDE_VIEW_PORT` or `PORT` | `47892` | Override the default port |
-
-</details>
-
-<details>
-<summary><strong>Self-Hosting & Local Dev</strong></summary>
-<br>
-
-The pre-built binary ships with auth, sharing, and mobile relay baked in. Building from source? These features are **opt-in via environment variables** — omit any and that feature is simply disabled.
-
-| Env Variable | Feature | Without it |
-|-------------|---------|------------|
-| `SUPABASE_URL` | Login / auth | Auth disabled — fully local, zero-account mode |
-| `RELAY_URL` | Mobile pairing | QR pairing unavailable |
-| `SHARE_WORKER_URL` + `SHARE_VIEWER_URL` | Encrypted sharing | Share button hidden |
-
-```bash
-bun dev    # fully local, no cloud dependencies
-```
 
 </details>
 
@@ -408,7 +313,7 @@ This keeps database, prompt index, cache, and lock files inside the repo. Set `C
 <summary><strong>"Not signed in" banner showing even though I'm logged in</strong></summary>
 <br>
 
-claude-view checks your Claude credentials by reading `~/.claude/.credentials.json` (with macOS Keychain fallback). Try these steps:
+Mission Control checks your Claude credentials by reading `~/.claude/.credentials.json` (with macOS Keychain fallback). Try these steps:
 
 1. **Verify Claude CLI auth:** `claude auth status`
 2. **Check credentials file:** `cat ~/.claude/.credentials.json` — should have a `claudeAiOauth` section with an `accessToken`
@@ -416,15 +321,15 @@ claude-view checks your Claude credentials by reading `~/.claude/.credentials.js
 4. **Check token expiry:** Look at `expiresAt` in the credentials JSON — if past, run `claude auth login`
 5. **Check HOME:** `echo $HOME` — the server reads from `$HOME/.claude/.credentials.json`
 
-If all checks pass and the banner persists, report it on [Discord](https://discord.gg/G7wdZTpRfu).
+If all checks pass and the banner persists, [open an issue](https://github.com/TextLayer/claude-mission-control/issues).
 
 </details>
 
 <details>
-<summary><strong>What data does claude-view access?</strong></summary>
+<summary><strong>What data does Mission Control access?</strong></summary>
 <br>
 
-claude-view reads the JSONL session files that Claude Code writes to `~/.claude/projects/`. It indexes session metadata locally in SQLite and searches session text with rust grep over local JSONL files. **Your session content never leaves your machine** unless you explicitly use the encrypted sharing feature. Official builds (`npx claude-view` / install.sh) send **anonymous usage analytics** — which features/screens are opened, app version, OS, install source, a random per-install UUID — and **never** code, prompts, paths or session content; opt out anytime with `CLAUDE_VIEW_TELEMETRY=0`. Builds from source contain no analytics key and send nothing. See [Privacy & Telemetry](#privacy--telemetry).
+Mission Control reads the JSONL session files that Claude Code writes to `~/.claude/projects/`. It indexes session metadata locally in SQLite and searches session text with rust grep over local JSONL files. **Nothing it reads leaves your machine**, and release builds send no analytics. See [Privacy](#privacy).
 
 </details>
 
@@ -432,17 +337,15 @@ claude-view reads the JSONL session files that Claude Code writes to `~/.claude/
 <summary><strong>Does it work with Claude Code in VS Code / Cursor / IDE extensions?</strong></summary>
 <br>
 
-Yes. claude-view monitors all Claude Code sessions regardless of how they were started — terminal CLI, VS Code extension, Cursor, or Agent SDK. Each session shows a source badge (Terminal, VS Code, SDK) so you can filter by launch method.
+Yes. Mission Control monitors all Claude Code sessions regardless of how they were started — terminal CLI, VS Code extension, Cursor, or Agent SDK. Each session shows a source badge (Terminal, VS Code, SDK) so you can filter by launch method.
 
 </details>
 
 ---
 
-## Community
+## Support
 
-- **Website:** [claudeview.ai](https://claudeview.ai) — docs, changelog, blog
-- **Discord:** [Join the server](https://discord.gg/G7wdZTpRfu) — support, feature requests, discussion
-- **Plugin:** [`@claude-view/plugin`](https://www.npmjs.com/package/@claude-view/plugin) — 85 MCP tools, 9 skills, auto-start
+Questions and bug reports: [GitHub issues](https://github.com/TextLayer/claude-mission-control/issues).
 
 ---
 
@@ -467,11 +370,9 @@ bun dev            # Start full-stack dev (Rust + Web + Sidecar with hot reload)
 | `apps/landing/` | `@claude-view/landing` | Astro 5 landing page (zero client-side JS) |
 | `packages/shared/` | `@claude-view/shared` | Shared types & theme tokens |
 | `packages/design-tokens/` | `@claude-view/design-tokens` | Colors, spacing, typography |
-| `packages/plugin/` | `@claude-view/plugin` | Claude Code plugin (MCP server + tools + skills) |
 | `crates/` | — | Rust backend (Axum) |
 | `sidecar/` | — | Node.js sidecar (Agent SDK bridge) |
 | `infra/share-worker/` | — | Cloudflare Worker — share API (R2 + D1) |
-| `infra/install-worker/` | — | Cloudflare Worker — install script with download tracking |
 
 ### Dev Commands
 
@@ -481,21 +382,24 @@ bun dev            # Start full-stack dev (Rust + Web + Sidecar with hot reload)
 | `bun run dev:web` | Web frontend only |
 | `bun run dev:server` | Rust backend only |
 | `bun run build` | Build all workspaces |
-| `bun run preview` | Build web + serve via release binary |
 | `bun run lint:all` | Lint JS/TS + Rust (Clippy) |
 | `bun run typecheck` | TypeScript type checking |
 | `bun run test` | Run all tests (Turbo) |
 | `bun run test:rust` | Run Rust tests |
 | `bun run storybook` | Launch Storybook for component development |
-| `bun run dist:test` | Build + pack + install + run (full dist test) |
+| `bun run release:dry-run` | Build and verify the release downloads without publishing |
 
 ### Releasing
 
+There's no CI pipeline: releases are built on a Mac and published to GitHub Releases with the [GitHub CLI](https://cli.github.com) (`gh auth login` first). Linux builds run in Docker, so start Docker Desktop first.
+
 ```bash
-bun run release          # patch bump
-bun run release:minor    # minor bump
-git push origin main --tags    # triggers CI → builds → auto-publishes to npm
+./scripts/release.sh --dry-run   # build + verify all four downloads, publish nothing
+./scripts/release.sh             # release the version already in Cargo.toml
+./scripts/release.sh patch       # bump (patch | minor | major | X.Y.Z), commit, then release
 ```
+
+The script runs `./scripts/ci-local.sh`, builds `mission-control-<platform>.tar.gz` for each platform plus `checksums.txt`, then asks before it pushes `main` and the tag and creates the release with `install.sh` attached. Pass `--platforms darwin-arm64,darwin-x64` to skip the Linux builds.
 
 </details>
 
@@ -503,34 +407,16 @@ git push origin main --tags    # triggers CI → builds → auto-publishes to np
 
 ## Platform Support
 
-| Platform | Status |
-|----------|--------|
-| macOS (Apple Silicon) | Available |
-| macOS (Intel) | Available |
-| Linux (x64) | Planned |
-| Windows (x64) | Planned |
+| Platform | Download |
+|----------|----------|
+| macOS (Apple Silicon) | `mission-control-darwin-arm64.tar.gz` |
+| macOS (Intel) | `mission-control-darwin-x64.tar.gz` |
+| Linux (x64) | `mission-control-linux-x64.tar.gz` |
+| Linux (arm64) | `mission-control-linux-arm64.tar.gz` |
+| Windows | Not supported |
 
 ---
 
-## Related
+## Credits
 
-- **[claudeview.ai](https://claudeview.ai)** — Official website, docs, and changelog
-- **[Privacy Policy](https://claudeview.ai/privacy)** — How we handle your data (your session content stays local; anonymous usage analytics in official builds — opt-out anytime)
-- **[@claude-view/plugin](https://www.npmjs.com/package/@claude-view/plugin)** — Claude Code plugin with 85 MCP tools and 9 skills. `claude plugin marketplace add tombelieber/claude-view && claude plugin install claude-view`
-- **[claude-backup](https://github.com/tombelieber/claude-backup)** — Claude Code deletes your sessions after 30 days. This saves them. `npx claude-backup`
-
----
-
-<div align="center">
-
-If **claude-view** helps you see what your AI agents are doing, consider giving it a star.
-
-<a href="https://github.com/tombelieber/claude-view/stargazers">
-  <img src="https://img.shields.io/github/stars/tombelieber/claude-view?style=for-the-badge&logo=github" alt="Star on GitHub">
-</a>
-
-<br><br>
-
-MIT &copy; 2026
-
-</div>
+Mission Control is built on [claude-view](https://github.com/tombelieber/claude-view) by Tom Tang, released under the [MIT License](./LICENSE).

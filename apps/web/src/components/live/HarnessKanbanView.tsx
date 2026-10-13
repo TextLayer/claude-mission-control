@@ -75,7 +75,7 @@ export function HarnessKanbanView({
         <span>
           <span className="font-medium">Preview</span> — UI polish coming soon. Ideas?{' '}
           <a
-            href="https://github.com/tombelieber/claude-view/issues"
+            href="https://github.com/TextLayer/claude-mission-control/issues"
             target="_blank"
             rel="noopener noreferrer"
             className="font-medium underline underline-offset-2 hover:text-amber-600 dark:hover:text-amber-300"

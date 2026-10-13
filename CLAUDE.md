@@ -7,9 +7,12 @@ Project-wide instructions for Claude/Codex-style agents working in this repo.
 - Do not add or rely on remote CI for quality gates in this repo.
 - All CI checks must be local-bounded and enforced through local scripts or
   local git hooks such as `./scripts/ci-local.sh` and `lefthook` pre-push.
-- GitHub Actions are reserved for release builds and release publishing only.
-- Do not recreate push or pull-request GitHub Actions workflows for lint,
-  typecheck, tests, contract checks, or drift checks.
+- This fork uses no GitHub Actions at all. Releases are built and published
+  locally with `./scripts/release.sh` (GitHub Releases via `gh`). Do not add
+  `.github/workflows/` files for releases, lint, typecheck, tests, contract
+  checks, or drift checks.
+- Distribution is GitHub Releases only (`install.sh` attached to each
+  release). There is no npm package or Claude Code plugin marketplace entry.
 
 ## Cargo Rules
 

@@ -478,15 +478,13 @@ pub struct ApiDoc;
 mod tests {
     use super::*;
 
+    // Upstream wrote this spec into packages/plugin for MCP codegen; the
+    // TextLayer fork has no plugin, so just check the spec still builds.
     #[test]
-    fn export_openapi_spec() {
+    fn openapi_spec_serializes() {
         let spec = ApiDoc::openapi();
         let json = serde_json::to_string_pretty(&spec).unwrap();
-        let out_path = concat!(
-            env!("CARGO_MANIFEST_DIR"),
-            "/../../packages/plugin/scripts/openapi.json"
-        );
-        std::fs::write(out_path, json).unwrap();
-        println!("OpenAPI spec written to {out_path}");
+        assert!(spec.paths.paths.len() > 50, "expected the full route table");
+        assert!(json.contains("\"/api/health\""));
     }
 }

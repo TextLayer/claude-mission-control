@@ -77,7 +77,7 @@ rm -rf "$INSTALL_DIR"
 mkdir -p "$INSTALL_DIR"/{data,sidecar/dist}
 
 # Binary
-cp target/release/claude-view "$INSTALL_DIR/claude-view"
+cp target/release/mission-control "$INSTALL_DIR/mission-control"
 
 # Frontend
 cp -r apps/web/dist "$INSTALL_DIR/dist"
@@ -231,7 +231,7 @@ echo "  Data dir: \$DIR/data"
 echo "  Hooks:    pre-configured (outside sandbox)"
 echo ""
 
-exec "\$DIR/claude-view"
+exec "\$DIR/mission-control"
 START_EOF
 
 chmod +x "$INSTALL_DIR/start.sh"

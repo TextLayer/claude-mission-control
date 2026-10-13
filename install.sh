@@ -1,15 +1,20 @@
 #!/bin/sh
 set -eu
 
-# claude-view installer
-# Usage: curl -fsSL https://get.claudeview.ai/install.sh | sh
+# TextLayer Mission Control installer
+# Usage:
+#   curl -fsSL https://github.com/TextLayer/claude-mission-control/releases/latest/download/install.sh | sh
 #
 # Environment variables:
-#   CLAUDE_VIEW_VERSION   - Install a specific version (default: latest)
-#   CLAUDE_VIEW_INSTALL_DIR - Override install location (default: ~/.claude-view)
+#   MISSION_CONTROL_VERSION     - Install a specific version, e.g. 1.0.0 (default: latest)
+#   MISSION_CONTROL_INSTALL_DIR - Override install location (default: ~/.mission-control)
+#
+# Everything is downloaded from this repo's GitHub Releases and checked
+# against the release's checksums.txt before it is unpacked.
 
-REPO="tombelieber/claude-view"
-INSTALL_DIR="${CLAUDE_VIEW_INSTALL_DIR:-$HOME/.claude-view}"
+REPO="TextLayer/claude-mission-control"
+BINARY="mission-control"
+INSTALL_DIR="${MISSION_CONTROL_INSTALL_DIR:-$HOME/.mission-control}"
 BIN_DIR="${INSTALL_DIR}/bin"
 
 # --- Colors (disabled if not a terminal) ---
@@ -26,7 +31,7 @@ fi
 
 info()    { printf "${BOLD}%s${RESET}\n" "$1"; }
 success() { printf "${GREEN}${BOLD}%s${RESET}\n" "$1"; }
-error()   { printf "${RED}error: %s${RESET}\n" "$1" >&2; exit 1; }
+error()   { printf "${RED}error: %b${RESET}\n" "$1" >&2; exit 1; }
 dim()     { printf "${DIM}%s${RESET}\n" "$1"; }
 
 # --- Platform detection ---
@@ -53,24 +58,26 @@ detect_platform() {
 # --- Version resolution ---
 
 resolve_version() {
-  if [ -n "${CLAUDE_VIEW_VERSION:-}" ]; then
-    echo "$CLAUDE_VIEW_VERSION"
+  if [ -n "${MISSION_CONTROL_VERSION:-}" ]; then
+    echo "${MISSION_CONTROL_VERSION#v}"
     return
   fi
 
+  # /releases/latest redirects to /releases/tag/vX.Y.Z (or to /releases
+  # when nothing has been published yet, which yields no tag here).
   tag=$(curl -sI "https://github.com/${REPO}/releases/latest" \
     | grep -i '^location:' \
-    | sed 's|.*/tag/v||' \
+    | sed -n 's|.*/tag/v||p' \
     | tr -d '[:space:]')
 
   if [ -z "$tag" ]; then
-    error "Could not resolve latest version. Set CLAUDE_VIEW_VERSION=x.y.z or check https://github.com/${REPO}/releases"
+    error "Could not find the latest release.\n  Set MISSION_CONTROL_VERSION=x.y.z or check https://github.com/${REPO}/releases"
   fi
 
   echo "$tag"
 }
 
-# --- Checksum verification ---
+# --- Checksum verification (required) ---
 
 verify_checksum() {
   file="$1"
@@ -81,14 +88,12 @@ verify_checksum() {
   checksums=$(curl -fsSL "$checksums_url" 2>/dev/null || true)
 
   if [ -z "$checksums" ]; then
-    dim "  (checksum file not available, skipping verification)"
-    return
+    error "Could not download checksums.txt for v${version}; refusing to install an unverified download."
   fi
 
-  expected=$(echo "$checksums" | grep "$artifact" | awk '{print $1}')
+  expected=$(echo "$checksums" | awk -v f="$artifact" '$2 == f { print $1 }')
   if [ -z "$expected" ]; then
-    dim "  (no checksum for $artifact, skipping verification)"
-    return
+    error "checksums.txt for v${version} has no entry for ${artifact}."
   fi
 
   if command -v sha256sum >/dev/null 2>&1; then
@@ -96,8 +101,7 @@ verify_checksum() {
   elif command -v shasum >/dev/null 2>&1; then
     actual=$(shasum -a 256 "$file" | awk '{print $1}')
   else
-    dim "  (sha256sum not found, skipping verification)"
-    return
+    error "Neither sha256sum nor shasum is available to verify the download."
   fi
 
   if [ "$actual" != "$expected" ]; then
@@ -156,19 +160,20 @@ setup_path() {
     return
   fi
 
-  printf "\n# claude-view\n%s\n" "$path_line" >> "$profile"
+  mkdir -p "$(dirname "$profile")"
+  printf "\n# TextLayer Mission Control\n%s\n" "$path_line" >> "$profile"
   dim "  Added to PATH in $profile"
 }
 
 # --- Main ---
 
 main() {
-  info "Installing claude-view..."
+  info "Installing TextLayer Mission Control..."
   echo ""
 
   platform=$(detect_platform)
   version=$(resolve_version)
-  artifact="claude-view-${platform}.tar.gz"
+  artifact="${BINARY}-${platform}.tar.gz"
   url="https://github.com/${REPO}/releases/download/v${version}/${artifact}"
 
   info "  Platform: ${platform}"
@@ -183,60 +188,52 @@ main() {
   printf "Downloading..."
   if ! curl -fSL --progress-bar "$url" -o "$tmp_file" 2>&1; then
     echo ""
-    error "Download failed.\n  URL: $url\n  Check https://github.com/${REPO}/releases for available versions."
+    error "Download failed.\n  URL: $url\n  Check https://github.com/${REPO}/releases for available versions and platforms."
   fi
   echo ""
 
-  # Verify checksum
   verify_checksum "$tmp_file" "$version" "$artifact"
 
   # Clean and extract
   rm -rf "$BIN_DIR"
   mkdir -p "$BIN_DIR"
   tar xzf "$tmp_file" -C "$BIN_DIR"
+  chmod +x "${BIN_DIR}/${BINARY}"
 
-  # Make binary executable
-  chmod +x "${BIN_DIR}/claude-view"
-
-  # macOS: remove quarantine flag
+  # macOS: the binaries aren't signed by Apple; clear the quarantine flag so
+  # Gatekeeper doesn't block the first run.
   if [ "$(uname -s)" = "Darwin" ]; then
     xattr -dr com.apple.quarantine "$BIN_DIR" 2>/dev/null || true
   fi
 
-  # Write version marker
+  # Version marker
   echo "$version" > "${INSTALL_DIR}/version"
 
-  # Write install-source marker — the explicit contract read by
-  # detect_install_source() in the server. Co-located with the binary so
-  # it can never drift from it (survives CLAUDE_VIEW_INSTALL_DIR override).
+  # Install-source marker — the explicit contract read by
+  # detect_install_source() in the server (crates/server/src/startup/install.rs).
+  # Co-located with the binary so it survives MISSION_CONTROL_INSTALL_DIR.
   echo "install_sh" > "${INSTALL_DIR}/install-source"
 
-  # Install sidecar dependencies if Node.js is available
-  if [ -d "${BIN_DIR}/sidecar" ] && command -v npm >/dev/null 2>&1; then
-    if [ ! -d "${BIN_DIR}/sidecar/node_modules" ]; then
-      dim "  Installing sidecar dependencies..."
-      (cd "${BIN_DIR}/sidecar" && npm install --omit=dev --silent 2>/dev/null) || true
-    fi
-  fi
-
-  # Set up PATH
   setup_path
 
   echo ""
-  success "claude-view v${version} installed successfully!"
+  success "TextLayer Mission Control v${version} installed."
   echo ""
-  dim "  Installed to: ${BIN_DIR}/claude-view"
+  dim "  Installed to: ${BIN_DIR}/${BINARY}"
 
-  # Check if the bin dir is in current PATH
+  if ! command -v node >/dev/null 2>&1; then
+    dim "  Note: Node.js wasn't found. It's only needed to resume or take over sessions."
+  fi
+
   case ":${PATH}:" in
     *":${BIN_DIR}:"*)
       echo ""
-      info "Run 'claude-view' to get started."
+      info "Run '${BINARY}' to start it."
       ;;
     *)
       echo ""
-      info "Restart your shell, then run 'claude-view' to get started."
-      dim "  Or run now: ${BIN_DIR}/claude-view"
+      info "Restart your shell, then run '${BINARY}' to start it."
+      dim "  Or run now: ${BIN_DIR}/${BINARY}"
       ;;
   esac
 }

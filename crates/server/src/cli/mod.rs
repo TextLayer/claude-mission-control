@@ -7,9 +7,9 @@ use clap::{Parser, Subcommand};
 
 #[derive(Parser)]
 #[command(
-    name = "claude-view",
+    name = "mission-control",
     version,
-    about = "Mission Control for Claude Code"
+    about = "TextLayer Mission Control for Claude Code"
 )]
 pub struct Cli {
     #[command(subcommand)]
@@ -140,7 +140,7 @@ where
             anyhow::anyhow!(
                 "server returned unexpected shape: {e}\n\
                  (this usually means the CLI is older than the server — \
-                 try `claude-view --json` to inspect the raw response)"
+                 try `mission-control --json` to inspect the raw response)"
             )
         })?;
         print(&view);

@@ -116,12 +116,13 @@ export function SourceBadge({ source, size = 'sm', ownership }: SourceBadgeProps
     const config = source.label ? IDE_CONFIG[source.label] : null
     const Icon = config?.icon ?? Code
     const label = source.label ?? 'IDE'
-    const brandColor = config?.color ?? '#A855F7'
+    // Known IDEs keep their own brand colour; unknown sources stay neutral ink.
+    const brandColor = config?.color
 
     return (
       <span
-        className={`inline-flex items-center gap-1 ${textClass} font-semibold bg-gray-100 dark:bg-gray-800 rounded px-1.5 py-0.5 shrink-0`}
-        style={{ color: brandColor }}
+        className={`inline-flex items-center gap-1 ${textClass} font-semibold bg-gray-100 dark:bg-gray-800 rounded px-1.5 py-0.5 shrink-0 ${brandColor ? '' : 'text-gray-700 dark:text-gray-300'}`}
+        style={brandColor ? { color: brandColor } : undefined}
         title={`Launched from ${label} extension`}
       >
         <Icon size={iconSize} className="shrink-0" />

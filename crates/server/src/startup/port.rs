@@ -19,9 +19,10 @@ pub fn get_port() -> u16 {
 
 /// Check if a process holding a port is a stale claude-view instance.
 ///
-/// Returns true if the process name contains "claude-view" or
-/// "claude_view". If we can't determine the process name, returns false
-/// (don't kill unknowns).
+/// Returns true if the process name contains "claude-view",
+/// "claude_view" or "mission-control" (the TextLayer fork's binary name).
+/// If we can't determine the process name, returns false (don't kill
+/// unknowns).
 fn is_claude_view_process(pid: &str) -> bool {
     let output = std::process::Command::new("ps")
         .args(["-p", pid, "-o", "comm="])
@@ -30,7 +31,9 @@ fn is_claude_view_process(pid: &str) -> bool {
     match output {
         Ok(o) if o.status.success() => {
             let name = String::from_utf8_lossy(&o.stdout).to_lowercase();
-            name.contains("claude-view") || name.contains("claude_view")
+            name.contains("claude-view")
+                || name.contains("claude_view")
+                || name.contains("mission-control")
         }
         _ => false,
     }
@@ -58,7 +61,7 @@ pub fn try_reclaim_port(port: u16) -> bool {
             continue;
         }
         if is_claude_view_process(pid) {
-            eprintln!("  killing stale claude-view (PID {pid}) on port {port}");
+            eprintln!("  killing stale Mission Control (PID {pid}) on port {port}");
             let _ = std::process::Command::new("kill")
                 .args(["-9", pid])
                 .status();

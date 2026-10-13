@@ -3,13 +3,17 @@ import type { IDockviewHeaderActionsProps } from 'dockview-core'
 import { LayoutGrid } from 'lucide-react'
 
 export function TabBarActions({ containerApi, activePanel }: IDockviewHeaderActionsProps) {
+  // Split shows the active session in a second pane (same as Ctrl+\). It never
+  // opens a blank "New Chat" pane: Mission Control doesn't start sessions.
   const splitActive = (direction: 'right' | 'below') => {
-    if (!activePanel) return
+    const params = activePanel?.params as { sessionId?: string; ownership?: unknown } | undefined
+    const sessionId = params?.sessionId
+    if (!activePanel || !sessionId) return
     containerApi.addPanel({
-      id: `chat-new-${Date.now()}`,
+      id: `chat-${sessionId}-split-${direction === 'right' ? 'r' : 'd'}-${Date.now()}`,
       component: 'chat',
-      title: 'New Chat',
-      params: { sessionId: '' },
+      title: activePanel.title ?? sessionId.slice(0, 8),
+      params: { sessionId, ownership: params?.ownership ?? null },
       position: { referencePanel: activePanel, direction },
     })
   }

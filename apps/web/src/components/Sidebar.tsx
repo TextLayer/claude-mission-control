@@ -10,7 +10,6 @@ import {
   ChevronsDownUp,
   ChevronsUpDown,
   Clock,
-  Cpu,
   FileText,
   Folder,
   FolderKey,
@@ -382,7 +381,7 @@ export function Sidebar({ projects, collapsed = false }: SidebarProps) {
                 'transition-colors duration-150',
                 'focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-1 focus-visible:outline-none',
                 isSelected
-                  ? 'bg-blue-500 text-white'
+                  ? 'bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900'
                   : 'text-gray-700 dark:text-gray-300 hover:bg-gray-200/70 dark:hover:bg-gray-800/70',
               )}
             >
@@ -405,14 +404,14 @@ export function Sidebar({ projects, collapsed = false }: SidebarProps) {
                 <FolderOpen
                   className={cn(
                     'w-4 h-4 flex-shrink-0',
-                    isSelected ? 'text-white' : 'text-blue-400',
+                    isSelected ? 'text-white dark:text-gray-900' : 'text-blue-400',
                   )}
                 />
               ) : (
                 <Folder
                   className={cn(
                     'w-4 h-4 flex-shrink-0',
-                    isSelected ? 'text-white' : 'text-blue-400',
+                    isSelected ? 'text-white dark:text-gray-900' : 'text-blue-400',
                   )}
                 />
               )}
@@ -421,12 +420,7 @@ export function Sidebar({ projects, collapsed = false }: SidebarProps) {
               <span className="flex-1 truncate font-medium text-xs ml-1">{node.displayName}</span>
 
               {/* Session count */}
-              <span
-                className={cn(
-                  'text-xs tabular-nums flex-shrink-0',
-                  isSelected ? 'text-blue-100' : 'text-gray-400 dark:text-gray-500',
-                )}
-              >
+              <span className="text-xs tabular-nums flex-shrink-0 text-gray-400 dark:text-gray-500">
                 {node.sessionCount}
               </span>
             </div>
@@ -489,7 +483,7 @@ export function Sidebar({ projects, collapsed = false }: SidebarProps) {
             'p-2 rounded-md transition-colors',
             'focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-1',
             location.pathname === '/'
-              ? 'bg-blue-500 text-white'
+              ? 'bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900'
               : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200/70 dark:hover:bg-gray-800/70',
           )}
           title="Live Monitor"
@@ -502,7 +496,7 @@ export function Sidebar({ projects, collapsed = false }: SidebarProps) {
             'p-2 rounded-md transition-colors',
             'focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-1',
             location.pathname.startsWith('/sessions')
-              ? 'bg-blue-500 text-white'
+              ? 'bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900'
               : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200/70 dark:hover:bg-gray-800/70',
           )}
           title="Sessions"
@@ -515,7 +509,7 @@ export function Sidebar({ projects, collapsed = false }: SidebarProps) {
             'p-2 rounded-md transition-colors',
             'focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-1',
             location.pathname.startsWith('/chat')
-              ? 'bg-blue-500 text-white'
+              ? 'bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900'
               : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200/70 dark:hover:bg-gray-800/70',
           )}
           title="Chat"
@@ -528,7 +522,7 @@ export function Sidebar({ projects, collapsed = false }: SidebarProps) {
             'p-2 rounded-md transition-colors',
             'focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-1',
             location.pathname === '/analytics'
-              ? 'bg-blue-500 text-white'
+              ? 'bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900'
               : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200/70 dark:hover:bg-gray-800/70',
           )}
           title="Analytics"
@@ -541,7 +535,7 @@ export function Sidebar({ projects, collapsed = false }: SidebarProps) {
             'p-2 rounded-md transition-colors',
             'focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-1',
             location.pathname === '/activity'
-              ? 'bg-blue-500 text-white'
+              ? 'bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900'
               : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200/70 dark:hover:bg-gray-800/70',
           )}
           title="Activity"
@@ -554,7 +548,7 @@ export function Sidebar({ projects, collapsed = false }: SidebarProps) {
             'p-2 rounded-md transition-colors',
             'focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-1',
             location.pathname === '/reports'
-              ? 'bg-blue-500 text-white'
+              ? 'bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900'
               : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200/70 dark:hover:bg-gray-800/70',
           )}
           title="Reports"
@@ -567,7 +561,7 @@ export function Sidebar({ projects, collapsed = false }: SidebarProps) {
             'p-2 rounded-md transition-colors',
             'focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-1',
             location.pathname === '/prompts'
-              ? 'bg-blue-500 text-white'
+              ? 'bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900'
               : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200/70 dark:hover:bg-gray-800/70',
           )}
           title="Prompts"
@@ -580,7 +574,7 @@ export function Sidebar({ projects, collapsed = false }: SidebarProps) {
             'p-2 rounded-md transition-colors',
             'focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-1',
             location.pathname === '/teams'
-              ? 'bg-blue-500 text-white'
+              ? 'bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900'
               : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200/70 dark:hover:bg-gray-800/70',
           )}
           title="Teams"
@@ -593,7 +587,7 @@ export function Sidebar({ projects, collapsed = false }: SidebarProps) {
             'p-2 rounded-md transition-colors',
             'focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-1',
             location.pathname.startsWith('/workflows')
-              ? 'bg-blue-500 text-white'
+              ? 'bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900'
               : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200/70 dark:hover:bg-gray-800/70',
           )}
           title="Workflows"
@@ -606,7 +600,7 @@ export function Sidebar({ projects, collapsed = false }: SidebarProps) {
             'p-2 rounded-md transition-colors',
             'focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-1',
             location.pathname === '/claude-home'
-              ? 'bg-blue-500 text-white'
+              ? 'bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900'
               : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200/70 dark:hover:bg-gray-800/70',
           )}
           title="Claude Home"
@@ -619,7 +613,7 @@ export function Sidebar({ projects, collapsed = false }: SidebarProps) {
             'p-2 rounded-md transition-colors',
             'focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-1',
             location.pathname === '/plugins'
-              ? 'bg-blue-500 text-white'
+              ? 'bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900'
               : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200/70 dark:hover:bg-gray-800/70',
           )}
           title="Plugins"
@@ -632,7 +626,7 @@ export function Sidebar({ projects, collapsed = false }: SidebarProps) {
             'p-2 rounded-md transition-colors',
             'focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-1',
             location.pathname === '/memory'
-              ? 'bg-blue-500 text-white'
+              ? 'bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900'
               : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200/70 dark:hover:bg-gray-800/70',
           )}
           title="Memory"
@@ -645,7 +639,7 @@ export function Sidebar({ projects, collapsed = false }: SidebarProps) {
             'p-2 rounded-md transition-colors',
             'focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-1',
             location.pathname === '/monitor'
-              ? 'bg-blue-500 text-white'
+              ? 'bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900'
               : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200/70 dark:hover:bg-gray-800/70',
           )}
           title="System Monitor"
@@ -715,7 +709,7 @@ export function Sidebar({ projects, collapsed = false }: SidebarProps) {
                         className={cn(
                           'flex items-center gap-2 px-2 py-1.5 rounded-md text-sm transition-colors focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-1',
                           location.pathname === '/'
-                            ? 'bg-blue-500 text-white'
+                            ? 'bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900'
                             : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200/70 dark:hover:bg-gray-800/70',
                         )}
                       >
@@ -727,7 +721,7 @@ export function Sidebar({ projects, collapsed = false }: SidebarProps) {
                         className={cn(
                           'flex items-center gap-2 px-2 py-1.5 rounded-md text-sm transition-colors focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-1',
                           location.pathname.startsWith('/sessions')
-                            ? 'bg-blue-500 text-white'
+                            ? 'bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900'
                             : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200/70 dark:hover:bg-gray-800/70',
                         )}
                       >
@@ -739,7 +733,7 @@ export function Sidebar({ projects, collapsed = false }: SidebarProps) {
                         className={cn(
                           'flex items-center gap-2 px-2 py-1.5 rounded-md text-sm transition-colors focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-1',
                           location.pathname.startsWith('/chat')
-                            ? 'bg-blue-500 text-white'
+                            ? 'bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900'
                             : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200/70 dark:hover:bg-gray-800/70',
                         )}
                       >
@@ -751,7 +745,7 @@ export function Sidebar({ projects, collapsed = false }: SidebarProps) {
                         className={cn(
                           'flex items-center gap-2 px-2 py-1.5 rounded-md text-sm transition-colors focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-1',
                           location.pathname === '/analytics'
-                            ? 'bg-blue-500 text-white'
+                            ? 'bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900'
                             : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200/70 dark:hover:bg-gray-800/70',
                         )}
                       >
@@ -763,7 +757,7 @@ export function Sidebar({ projects, collapsed = false }: SidebarProps) {
                         className={cn(
                           'flex items-center gap-2 px-2 py-1.5 rounded-md text-sm transition-colors focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-1',
                           location.pathname === '/activity'
-                            ? 'bg-blue-500 text-white'
+                            ? 'bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900'
                             : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200/70 dark:hover:bg-gray-800/70',
                         )}
                       >
@@ -775,7 +769,7 @@ export function Sidebar({ projects, collapsed = false }: SidebarProps) {
                         className={cn(
                           'flex items-center gap-2 px-2 py-1.5 rounded-md text-sm transition-colors focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-1',
                           location.pathname === '/reports'
-                            ? 'bg-blue-500 text-white'
+                            ? 'bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900'
                             : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200/70 dark:hover:bg-gray-800/70',
                         )}
                       >
@@ -787,7 +781,7 @@ export function Sidebar({ projects, collapsed = false }: SidebarProps) {
                         className={cn(
                           'flex items-center gap-2 px-2 py-1.5 rounded-md text-sm transition-colors focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-1',
                           location.pathname === '/prompts'
-                            ? 'bg-blue-500 text-white'
+                            ? 'bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900'
                             : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200/70 dark:hover:bg-gray-800/70',
                         )}
                       >
@@ -799,7 +793,7 @@ export function Sidebar({ projects, collapsed = false }: SidebarProps) {
                         className={cn(
                           'flex items-center gap-2 px-2 py-1.5 rounded-md text-sm transition-colors focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-1',
                           location.pathname === '/teams'
-                            ? 'bg-blue-500 text-white'
+                            ? 'bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900'
                             : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200/70 dark:hover:bg-gray-800/70',
                         )}
                       >
@@ -811,7 +805,7 @@ export function Sidebar({ projects, collapsed = false }: SidebarProps) {
                         className={cn(
                           'flex items-center gap-2 px-2 py-1.5 rounded-md text-sm transition-colors focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-1',
                           location.pathname.startsWith('/workflows')
-                            ? 'bg-blue-500 text-white'
+                            ? 'bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900'
                             : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200/70 dark:hover:bg-gray-800/70',
                         )}
                       >
@@ -823,7 +817,7 @@ export function Sidebar({ projects, collapsed = false }: SidebarProps) {
                         className={cn(
                           'flex items-center gap-2 px-2 py-1.5 rounded-md text-sm transition-colors focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-1',
                           location.pathname === '/claude-home'
-                            ? 'bg-blue-500 text-white'
+                            ? 'bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900'
                             : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200/70 dark:hover:bg-gray-800/70',
                         )}
                       >
@@ -835,7 +829,7 @@ export function Sidebar({ projects, collapsed = false }: SidebarProps) {
                         className={cn(
                           'flex items-center gap-2 px-2 py-1.5 rounded-md text-sm transition-colors focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-1',
                           location.pathname === '/plugins'
-                            ? 'bg-blue-500 text-white'
+                            ? 'bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900'
                             : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200/70 dark:hover:bg-gray-800/70',
                         )}
                       >
@@ -847,7 +841,7 @@ export function Sidebar({ projects, collapsed = false }: SidebarProps) {
                         className={cn(
                           'flex items-center gap-2 px-2 py-1.5 rounded-md text-sm transition-colors focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-1',
                           location.pathname === '/memory'
-                            ? 'bg-blue-500 text-white'
+                            ? 'bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900'
                             : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200/70 dark:hover:bg-gray-800/70',
                         )}
                       >
@@ -859,25 +853,13 @@ export function Sidebar({ projects, collapsed = false }: SidebarProps) {
                         className={cn(
                           'flex items-center gap-2 px-2 py-1.5 rounded-md text-sm transition-colors focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-1',
                           location.pathname === '/monitor'
-                            ? 'bg-blue-500 text-white'
+                            ? 'bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900'
                             : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200/70 dark:hover:bg-gray-800/70',
                         )}
                       >
                         <Activity className="w-4 h-4" />
                         <span className="font-medium">System Monitor</span>
                       </Link>
-                      <span
-                        className={cn(
-                          'flex items-center gap-2 px-2 py-1.5 rounded-md text-sm cursor-not-allowed opacity-60',
-                          'text-gray-600 dark:text-gray-400',
-                        )}
-                      >
-                        <Cpu className="w-4 h-4" />
-                        <span className="font-medium">Agent SDK Studio</span>
-                        <span className="text-xs font-semibold uppercase tracking-wide bg-amber-100 dark:bg-amber-900/50 text-amber-700 dark:text-amber-400 px-1.5 py-0.5 rounded">
-                          Coming Soon
-                        </span>
-                      </span>
                     </>
                   )
                 })()}

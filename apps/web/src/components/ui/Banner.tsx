@@ -1,49 +1,48 @@
-import { AlertCircle, FlaskConical, Info, X } from 'lucide-react'
+import { X } from 'lucide-react'
 import { useState } from 'react'
 import { cn } from '../../lib/utils'
 
+// TextLayer caveat style (brand-system.md): no tinted fill. A hairline frame,
+// a small square marker in the status colour, and ink text — the site never
+// fills a panel with colour. Errors keep coral text so they still read as urgent.
+const SURFACE = {
+  bar: 'bg-white dark:bg-gray-950 border-gray-200 dark:border-gray-800',
+  inline: 'bg-white dark:bg-gray-900 border-dashed border-gray-300 dark:border-gray-700',
+}
+const NEUTRAL_TEXT = 'text-gray-700 dark:text-gray-300'
+const NEUTRAL_ACTION =
+  'rounded-full bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700'
+const NEUTRAL_DISMISS =
+  'text-gray-400 hover:text-gray-700 dark:text-gray-500 dark:hover:text-gray-200'
+
 const VARIANT_CONFIG = {
   error: {
-    icon: AlertCircle,
-    bar: 'bg-red-50 dark:bg-red-950/40 border-red-200 dark:border-red-800',
-    inline: 'bg-red-50 dark:bg-red-950/40 border-red-200 dark:border-red-800',
-    iconColor: 'text-red-500 dark:text-red-400',
+    ...SURFACE,
+    marker: 'bg-red-500',
     textColor: 'text-red-700 dark:text-red-300',
-    actionBg:
-      'bg-red-100 dark:bg-red-800/50 text-red-800 dark:text-red-200 hover:bg-red-200 dark:hover:bg-red-800',
-    dismissColor: 'text-red-400 hover:text-red-600 dark:text-red-500 dark:hover:text-red-300',
+    actionBg: NEUTRAL_ACTION,
+    dismissColor: NEUTRAL_DISMISS,
   },
   warning: {
-    icon: AlertCircle,
-    bar: 'bg-amber-50 dark:bg-amber-950/40 border-amber-200 dark:border-amber-800',
-    inline: 'bg-amber-50 dark:bg-amber-950/40 border-amber-200 dark:border-amber-800',
-    iconColor: 'text-amber-500 dark:text-amber-400',
-    textColor: 'text-amber-700 dark:text-amber-300',
-    actionBg:
-      'bg-amber-100 dark:bg-amber-800/50 text-amber-800 dark:text-amber-200 hover:bg-amber-200 dark:hover:bg-amber-800',
-    dismissColor:
-      'text-amber-400 hover:text-amber-600 dark:text-amber-500 dark:hover:text-amber-300',
+    ...SURFACE,
+    marker: 'bg-amber-500',
+    textColor: NEUTRAL_TEXT,
+    actionBg: NEUTRAL_ACTION,
+    dismissColor: NEUTRAL_DISMISS,
   },
   info: {
-    icon: Info,
-    bar: 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800',
-    inline: 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800',
-    iconColor: 'text-blue-600 dark:text-blue-400',
-    textColor: 'text-blue-800 dark:text-blue-200',
-    actionBg:
-      'bg-blue-100 dark:bg-blue-800/50 text-blue-800 dark:text-blue-200 hover:bg-blue-200 dark:hover:bg-blue-800',
-    dismissColor: 'text-blue-400 hover:text-blue-600 dark:text-blue-500 dark:hover:text-blue-300',
+    ...SURFACE,
+    marker: 'bg-blue-500',
+    textColor: NEUTRAL_TEXT,
+    actionBg: NEUTRAL_ACTION,
+    dismissColor: NEUTRAL_DISMISS,
   },
   experimental: {
-    icon: FlaskConical,
-    bar: 'bg-amber-50/80 dark:bg-amber-950/30 border-amber-200 dark:border-amber-800/60',
-    inline: 'bg-amber-50/80 dark:bg-amber-950/30 border-amber-200 dark:border-amber-800/60',
-    iconColor: 'text-amber-600 dark:text-amber-400',
-    textColor: 'text-amber-800 dark:text-amber-300',
-    actionBg:
-      'bg-amber-100 dark:bg-amber-800/50 text-amber-800 dark:text-amber-200 hover:bg-amber-200 dark:hover:bg-amber-800',
-    dismissColor:
-      'text-amber-400 hover:text-amber-600 dark:text-amber-500 dark:hover:text-amber-300',
+    ...SURFACE,
+    marker: 'bg-amber-500',
+    textColor: NEUTRAL_TEXT,
+    actionBg: NEUTRAL_ACTION,
+    dismissColor: NEUTRAL_DISMISS,
   },
 } as const
 
@@ -81,7 +80,6 @@ export function Banner({
   if (dismissed) return null
 
   const config = VARIANT_CONFIG[variant]
-  const Icon = config.icon
 
   const handleDismiss = () => {
     if (dismissKey) {
@@ -104,8 +102,8 @@ export function Banner({
       role="alert"
     >
       <div className={cn('flex items-start gap-3', isBar && 'max-w-5xl mx-auto items-center')}>
-        <Icon
-          className={cn('w-4 h-4 flex-shrink-0', isBar ? 'mt-0' : 'mt-0.5', config.iconColor)}
+        <span
+          className={cn('size-2 flex-shrink-0', isBar ? 'mt-0' : 'mt-1.5', config.marker)}
           aria-hidden="true"
         />
 
@@ -116,7 +114,7 @@ export function Banner({
             type="button"
             onClick={action.onClick}
             className={cn(
-              'flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg transition-colors cursor-pointer',
+              'flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium transition-colors cursor-pointer',
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1',
               config.actionBg,
             )}

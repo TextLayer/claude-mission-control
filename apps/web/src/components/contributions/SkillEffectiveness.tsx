@@ -27,10 +27,10 @@ interface SkillEffectivenessProps {
  * amber for moderate (>0%), gray otherwise.
  */
 function getSkillBarColor(skill: { skill: string; commitRate: number }): string {
-  if (skill.skill === '(no skill)') return '#9ca3af' // gray-400 baseline
-  if (skill.commitRate > 0.5) return '#22c55e' // green-500 high quality
-  if (skill.commitRate > 0) return '#f59e0b' // amber-500 moderate
-  return '#9ca3af' // gray-400
+  if (skill.skill === '(no skill)') return 'var(--color-gray-400)' // gray-400 baseline
+  if (skill.commitRate > 0.5) return 'var(--color-green-500)' // green-500 high quality
+  if (skill.commitRate > 0) return 'var(--color-amber-500)' // amber-500 moderate
+  return 'var(--color-gray-400)' // gray-400
 }
 
 /**
@@ -114,18 +114,24 @@ export function SkillEffectiveness({ bySkill, skillInsight }: SkillEffectiveness
           >
             <XAxis
               type="number"
-              tick={{ fontSize: chartFontSize.axisTick, fill: 'var(--chart-text, #6b7280)' }}
+              tick={{
+                fontSize: chartFontSize.axisTick,
+                fill: 'var(--chart-text, var(--color-gray-500))',
+              }}
             />
             <YAxis
               type="category"
               dataKey="skill"
-              tick={{ fontSize: chartFontSize.axisTick, fill: 'var(--chart-text, #6b7280)' }}
+              tick={{
+                fontSize: chartFontSize.axisTick,
+                fill: 'var(--chart-text, var(--color-gray-500))',
+              }}
               width={180}
             />
             <RechartsTooltip
               contentStyle={{
                 backgroundColor: 'var(--tooltip-bg, #fff)',
-                border: '1px solid var(--tooltip-border, #e5e7eb)',
+                border: '1px solid var(--tooltip-border, var(--color-gray-200))',
                 borderRadius: '8px',
                 fontSize: chartFontSize.tooltip,
               }}
@@ -146,7 +152,10 @@ export function SkillEffectiveness({ bySkill, skillInsight }: SkillEffectiveness
                 dataKey="sessions"
                 position="right"
                 formatter={(v) => `${v} sessions`}
-                style={{ fontSize: chartFontSize.annotation, fill: 'var(--chart-text, #6b7280)' }}
+                style={{
+                  fontSize: chartFontSize.annotation,
+                  fill: 'var(--chart-text, var(--color-gray-500))',
+                }}
               />
             </Bar>
           </BarChart>

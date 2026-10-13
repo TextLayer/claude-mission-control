@@ -60,7 +60,7 @@ export function ComponentDashboard({
 
         <div className="min-w-0 flex-1 flex items-center gap-2 overflow-hidden">
           <span className="font-medium text-sm text-gray-900 dark:text-gray-100 truncate">
-            claude-view
+            Mission Control
           </span>
 
           <span className="text-xs font-semibold uppercase px-1.5 py-0.5 rounded bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 shrink-0">

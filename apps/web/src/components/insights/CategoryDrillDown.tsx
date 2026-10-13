@@ -167,7 +167,7 @@ export function CategoryDrillDown({
                   style={{ cursor: 'pointer' }}
                 >
                   {subcategoryData.map((_, index) => (
-                    <Cell key={index} fill="#3B82F6" />
+                    <Cell key={index} fill="var(--color-blue-500)" />
                   ))}
                 </Bar>
               </BarChart>

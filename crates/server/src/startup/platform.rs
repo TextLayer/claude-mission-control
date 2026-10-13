@@ -15,12 +15,12 @@ pub fn ensure_supported() {
     let skip = std::env::var("CLAUDE_VIEW_SKIP_PLATFORM_CHECK").as_deref() == Ok("1");
     if !is_platform_supported(std::env::consts::OS, skip) {
         eprintln!(
-            "\n\u{26a0}\u{fe0f}  claude-view supports macOS and Linux. \
+            "\n\u{26a0}\u{fe0f}  Mission Control supports macOS and Linux. \
              Your platform ({}) is not officially supported.",
             std::env::consts::OS
         );
         eprintln!("   Set CLAUDE_VIEW_SKIP_PLATFORM_CHECK=1 to try anyway.");
-        eprintln!("   Report issues: https://github.com/tombelieber/claude-view/issues\n");
+        eprintln!("   Report issues: https://github.com/TextLayer/claude-mission-control/issues\n");
         std::process::exit(1);
     }
 }

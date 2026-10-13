@@ -26,7 +26,7 @@ pub fn collect(
     let self_pid = std::process::id();
     let (self_cpu, self_mem) = pid_metrics(sys, Some(self_pid));
     components.push(ComponentStatus {
-        name: "claude-view".into(),
+        name: "mission-control".into(),
         kind: ComponentKind::ChildProcess,
         enabled: true,
         running: true,

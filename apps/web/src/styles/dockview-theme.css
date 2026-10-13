@@ -1,50 +1,51 @@
 /* Dockview theme: light + dark mode support.
    Uses .dockview-theme-cv class name. Light mode defaults, dark overrides
    via :where(.dark, .dark *) — matches the project's Tailwind dark mode pattern.
-   Colors from design-tokens: GitHub-style palette. */
+   Colours resolve through the Tailwind theme variables, so the TextLayer
+   brand layer (textlayer-theme.css) restyles panels, tabs and sashes. */
 
 /* ── Light mode (default) ── */
 
 .dockview-theme-cv {
   /* Tab container */
   --dv-tabs-and-actions-container-height: 40px;
-  --dv-paneview-header-border-color: #d0d7de;
-  --dv-tabs-and-actions-container-background-color: #f6f8fa;
+  --dv-paneview-header-border-color: var(--color-gray-200);
+  --dv-tabs-and-actions-container-background-color: var(--color-gray-50);
 
   /* Active tab — white bg to match panel body */
   --dv-activegroup-visiblepanel-tab-background-color: #ffffff;
-  --dv-activegroup-hiddenpanel-tab-background-color: #f6f8fa;
+  --dv-activegroup-hiddenpanel-tab-background-color: var(--color-gray-50);
   --dv-inactivegroup-visiblepanel-tab-background-color: #ffffff;
-  --dv-inactivegroup-hiddenpanel-tab-background-color: #f6f8fa;
+  --dv-inactivegroup-hiddenpanel-tab-background-color: var(--color-gray-50);
 
   /* Tab divider */
-  --dv-tab-divider-color: #d0d7de;
+  --dv-tab-divider-color: var(--color-gray-200);
 
   /* Tab text */
-  --dv-activegroup-visiblepanel-tab-color: #24292f;
-  --dv-activegroup-hiddenpanel-tab-color: #656d76;
-  --dv-inactivegroup-visiblepanel-tab-color: #24292f;
-  --dv-inactivegroup-hiddenpanel-tab-color: #656d76;
+  --dv-activegroup-visiblepanel-tab-color: var(--color-gray-900);
+  --dv-activegroup-hiddenpanel-tab-color: var(--color-gray-500);
+  --dv-inactivegroup-visiblepanel-tab-color: var(--color-gray-900);
+  --dv-inactivegroup-hiddenpanel-tab-color: var(--color-gray-500);
 
   /* Active tab underline — blue accent (VSCode convention) */
-  --dv-active-tab-border-bottom-color: #3B82F6;
+  --dv-active-tab-border-bottom-color: var(--color-blue-500);
 
   /* Panel body */
   --dv-group-view-background-color: #ffffff;
 
   /* Separator (split bar) */
-  --dv-separator-border: #d0d7de;
-  --dv-separator-handle-color: #d0d7de;
+  --dv-separator-border: var(--color-gray-200);
+  --dv-separator-handle-color: var(--color-gray-200);
 
   /* Sash (resize handle) — visible by default, blue accent on hover */
-  --dv-sash-color: #d0d7de;
-  --dv-active-sash-color: #3B82F6;
+  --dv-sash-color: var(--color-gray-200);
+  --dv-active-sash-color: var(--color-blue-500);
   --dv-active-sash-transition-duration: 0.15s;
   --dv-active-sash-transition-delay: 0s;
 
-  /* Drag preview — green accent at low opacity */
-  --dv-drag-over-background-color: rgba(34, 197, 94, 0.08);
-  --dv-drag-over-border-color: #22c55e;
+  /* Drag preview — brand cobalt at low opacity */
+  --dv-drag-over-background-color: color-mix(in oklab, var(--color-blue-500) 8%, transparent);
+  --dv-drag-over-border-color: var(--color-blue-500);
 
   /* Floating / popout */
   --dv-floating-box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
@@ -54,41 +55,41 @@
 
 :where(.dark, .dark *) .dockview-theme-cv {
   /* Tab container — GitHub dark header */
-  --dv-paneview-header-border-color: #30363D;
-  --dv-tabs-and-actions-container-background-color: #161B22;
+  --dv-paneview-header-border-color: var(--color-gray-700);
+  --dv-tabs-and-actions-container-background-color: var(--color-gray-900);
 
   /* Active tab — panel body bg */
-  --dv-activegroup-visiblepanel-tab-background-color: #0D1117;
-  --dv-activegroup-hiddenpanel-tab-background-color: #161B22;
-  --dv-inactivegroup-visiblepanel-tab-background-color: #0D1117;
-  --dv-inactivegroup-hiddenpanel-tab-background-color: #161B22;
+  --dv-activegroup-visiblepanel-tab-background-color: var(--color-gray-950);
+  --dv-activegroup-hiddenpanel-tab-background-color: var(--color-gray-900);
+  --dv-inactivegroup-visiblepanel-tab-background-color: var(--color-gray-950);
+  --dv-inactivegroup-hiddenpanel-tab-background-color: var(--color-gray-900);
 
   /* Tab divider */
-  --dv-tab-divider-color: #30363D;
+  --dv-tab-divider-color: var(--color-gray-700);
 
   /* Tab text */
-  --dv-activegroup-visiblepanel-tab-color: #F0F6FC;
-  --dv-activegroup-hiddenpanel-tab-color: #8B949E;
-  --dv-inactivegroup-visiblepanel-tab-color: #C9D1D9;
-  --dv-inactivegroup-hiddenpanel-tab-color: #8B949E;
+  --dv-activegroup-visiblepanel-tab-color: var(--color-gray-100);
+  --dv-activegroup-hiddenpanel-tab-color: var(--color-gray-400);
+  --dv-inactivegroup-visiblepanel-tab-color: var(--color-gray-300);
+  --dv-inactivegroup-hiddenpanel-tab-color: var(--color-gray-400);
 
   /* Active tab underline — blue accent (VSCode convention, same in both modes) */
-  --dv-active-tab-border-bottom-color: #3B82F6;
+  --dv-active-tab-border-bottom-color: var(--color-blue-500);
 
   /* Panel body — GitHub dark bg */
-  --dv-group-view-background-color: #0D1117;
+  --dv-group-view-background-color: var(--color-gray-950);
 
   /* Separator */
-  --dv-separator-border: #21262D;
-  --dv-separator-handle-color: #30363D;
+  --dv-separator-border: var(--color-gray-800);
+  --dv-separator-handle-color: var(--color-gray-700);
 
   /* Sash (resize handle) */
-  --dv-sash-color: #30363D;
-  --dv-active-sash-color: #3B82F6;
+  --dv-sash-color: var(--color-gray-700);
+  --dv-active-sash-color: var(--color-blue-500);
 
   /* Drag preview */
-  --dv-drag-over-background-color: rgba(34, 197, 94, 0.06);
-  --dv-drag-over-border-color: #22c55e;
+  --dv-drag-over-background-color: color-mix(in oklab, var(--color-blue-500) 6%, transparent);
+  --dv-drag-over-border-color: var(--color-blue-500);
 
   /* Floating / popout */
   --dv-floating-box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
@@ -109,21 +110,21 @@
 
 /* Soft glow on hover for visual emphasis (makes 4px appear ~10px) */
 .dockview-theme-cv .dv-sash-container .dv-sash:not(.disabled):hover {
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+  box-shadow: 0 0 0 2px color-mix(in oklab, var(--color-blue-500) 15%, transparent);
 }
 
-/* Active (dragging): green accent — #3FB950 matches spec's drag indicator */
+/* Active (dragging): brand cobalt, the only interaction accent */
 .dockview-theme-cv .dv-sash-container .dv-sash:not(.disabled):active {
-  background-color: #3FB950;
-  box-shadow: 0 0 0 2px rgba(63, 185, 80, 0.15);
+  background-color: var(--color-blue-500);
+  box-shadow: 0 0 0 2px color-mix(in oklab, var(--color-blue-500) 15%, transparent);
 }
 
 /* Dark mode: stronger glow for contrast */
 :where(.dark, .dark *) .dockview-theme-cv .dv-sash-container .dv-sash:not(.disabled):hover {
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
+  box-shadow: 0 0 0 2px color-mix(in oklab, var(--color-blue-500) 25%, transparent);
 }
 
 :where(.dark, .dark *) .dockview-theme-cv .dv-sash-container .dv-sash:not(.disabled):active {
-  background-color: #3FB950;
-  box-shadow: 0 0 0 2px rgba(63, 185, 80, 0.25);
+  background-color: var(--color-blue-500);
+  box-shadow: 0 0 0 2px color-mix(in oklab, var(--color-blue-500) 25%, transparent);
 }

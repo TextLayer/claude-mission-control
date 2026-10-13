@@ -30,6 +30,7 @@ import { formatRelativeTime, useStatus } from '../hooks/use-status'
 import { formatDuration, formatRelativeTimestamp, useReset, useSystem } from '../hooks/use-system'
 import { useTelemetry } from '../hooks/use-telemetry'
 import { useTrackEvent } from '../hooks/use-track-event'
+import { GITHUB_URL, PRODUCT_NAME } from '../lib/brand'
 import { formatNumber } from '../lib/format-utils'
 import { TOAST_DURATION } from '../lib/notify'
 import { cn } from '../lib/utils'
@@ -48,8 +49,6 @@ declare const __APP_BUILD_DATE__: string
 const APP_VERSION = __APP_VERSION__
 const APP_BUILD_DATE = __APP_BUILD_DATE__
 
-const GITHUB_REPO = 'tombelieber/claude-view'
-const GITHUB_URL = `https://github.com/${GITHUB_REPO}`
 const PRIVACY_POLICY_URL = 'https://claudeview.ai/privacy'
 
 interface SettingsSectionProps {
@@ -797,17 +796,21 @@ export function SettingsPage() {
                   onEnable={enableTelemetry}
                   onDisable={disableTelemetry}
                 />
-                <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-                  <a
-                    href={PRIVACY_POLICY_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 hover:underline"
-                  >
-                    <ExternalLink className="w-3.5 h-3.5" />
-                    View Privacy Policy
-                  </a>
-                </div>
+                {/* Upstream's policy covers upstream's analytics. Builds without an
+                    analytics key send nothing, so there is no policy to link. */}
+                {config.posthogKey !== null && (
+                  <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <a
+                      href={PRIVACY_POLICY_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 hover:underline"
+                    >
+                      <ExternalLink className="w-3.5 h-3.5" />
+                      View Privacy Policy
+                    </a>
+                  </div>
+                )}
               </SettingsSection>
 
               {/* ABOUT */}
@@ -815,7 +818,7 @@ export function SettingsPage() {
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                      Claude View v{APP_VERSION}
+                      {PRODUCT_NAME} v{APP_VERSION}
                     </p>
                     <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5 tabular-nums">
                       Built {APP_BUILD_DATE}
@@ -879,7 +882,6 @@ export function SettingsPage() {
                   <ShortcutGroup
                     title="Chat Tabs"
                     shortcuts={[
-                      { keys: [{ ctrl: true, key: 'T' }], label: 'New tab' },
                       { keys: [{ ctrl: true, key: 'W' }], label: 'Close tab' },
                       { keys: [{ ctrl: true, key: 'Tab' }], label: 'Next tab' },
                       { keys: [{ ctrl: true, shift: true, key: 'Tab' }], label: 'Previous tab' },

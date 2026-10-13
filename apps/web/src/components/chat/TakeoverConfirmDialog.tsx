@@ -26,13 +26,13 @@ export function TakeoverConfirmDialog({ open, onConfirm, onCancel }: TakeoverCon
         <AlertDialogContent className="max-w-md bg-white dark:bg-gray-900 rounded-xl shadow-xl p-6">
           <AlertDialog.Title className="text-lg font-semibold text-gray-900 dark:text-gray-100 flex items-center gap-2">
             <AlertTriangle className="h-5 w-5 text-blue-500" />
-            Continue in Claude View?
+            Continue in Mission Control?
           </AlertDialog.Title>
 
           <AlertDialog.Description className="text-sm text-gray-600 dark:text-gray-400 mt-3 leading-relaxed">
-            This session was started outside claude-view (CLI / VS Code). Forking will create a copy
-            of the conversation here so you can continue it in this panel. The original CLI session
-            will keep running separately.
+            This session was started outside Mission Control (CLI / VS Code). Forking will create a
+            copy of the conversation here so you can continue it in this panel. The original CLI
+            session will keep running separately.
           </AlertDialog.Description>
 
           <label className="mt-4 flex items-center gap-2 cursor-pointer select-none">

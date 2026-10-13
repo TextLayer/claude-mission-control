@@ -84,19 +84,25 @@ export function ModelComparison({ byModel }: ModelComparisonProps) {
           >
             <XAxis
               type="number"
-              tick={{ fontSize: chartFontSize.axisTick, fill: 'var(--chart-text, #6b7280)' }}
+              tick={{
+                fontSize: chartFontSize.axisTick,
+                fill: 'var(--chart-text, var(--color-gray-500))',
+              }}
               tickFormatter={(v) => formatNumber(v as number)}
             />
             <YAxis
               type="category"
               dataKey="displayName"
-              tick={{ fontSize: chartFontSize.axisTick, fill: 'var(--chart-text, #6b7280)' }}
+              tick={{
+                fontSize: chartFontSize.axisTick,
+                fill: 'var(--chart-text, var(--color-gray-500))',
+              }}
               width={70}
             />
             <RechartsTooltip
               contentStyle={{
                 backgroundColor: 'var(--tooltip-bg, #fff)',
-                border: '1px solid var(--tooltip-border, #e5e7eb)',
+                border: '1px solid var(--tooltip-border, var(--color-gray-200))',
                 borderRadius: '8px',
                 fontSize: chartFontSize.tooltip,
               }}
@@ -117,7 +123,10 @@ export function ModelComparison({ byModel }: ModelComparisonProps) {
                 dataKey="lines"
                 position="right"
                 formatter={(v) => formatNumber(v as number)}
-                style={{ fontSize: chartFontSize.annotation, fill: 'var(--chart-text, #6b7280)' }}
+                style={{
+                  fontSize: chartFontSize.annotation,
+                  fill: 'var(--chart-text, var(--color-gray-500))',
+                }}
               />
             </Bar>
           </BarChart>
@@ -232,10 +241,10 @@ export function ModelComparison({ byModel }: ModelComparisonProps) {
  */
 function getModelColor(model: string): string {
   const lower = model.toLowerCase()
-  if (lower.includes('opus')) return '#3b82f6'
-  if (lower.includes('sonnet')) return '#8b5cf6'
-  if (lower.includes('haiku')) return '#f59e0b'
-  return '#6b7280'
+  if (lower.includes('opus')) return 'var(--color-blue-500)'
+  if (lower.includes('sonnet')) return 'var(--color-violet-500)'
+  if (lower.includes('haiku')) return 'var(--color-amber-500)'
+  return 'var(--color-gray-500)'
 }
 
 /**

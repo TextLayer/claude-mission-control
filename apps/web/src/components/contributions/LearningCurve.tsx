@@ -34,7 +34,7 @@ export function LearningCurve({ data }: LearningCurveProps) {
     fullPeriod: p.period,
     reeditRate: p.reeditRate,
     // Color based on performance relative to average
-    fill: p.reeditRate <= currentAvg ? '#22c55e' : '#f59e0b',
+    fill: p.reeditRate <= currentAvg ? 'var(--color-green-500)' : 'var(--color-amber-500)',
   }))
 
   // Determine trend icon
@@ -94,26 +94,32 @@ export function LearningCurve({ data }: LearningCurveProps) {
             <BarChart data={chartData} margin={{ top: 10, right: 20, left: 0, bottom: 5 }}>
               <CartesianGrid
                 strokeDasharray="3 3"
-                stroke="var(--chart-grid, #e5e7eb)"
+                stroke="var(--chart-grid, var(--color-gray-200))"
                 vertical={false}
               />
               <XAxis
                 dataKey="period"
-                tick={{ fontSize: chartFontSize.axisTick, fill: 'var(--chart-text, #6b7280)' }}
+                tick={{
+                  fontSize: chartFontSize.axisTick,
+                  fill: 'var(--chart-text, var(--color-gray-500))',
+                }}
                 tickLine={false}
-                axisLine={{ stroke: 'var(--chart-axis, #d1d5db)' }}
+                axisLine={{ stroke: 'var(--chart-axis, var(--color-gray-300))' }}
               />
               <YAxis
                 domain={[0, (dataMax: number) => Math.ceil(dataMax * 1.2 * 10) / 10]}
-                tick={{ fontSize: chartFontSize.axisTick, fill: 'var(--chart-text, #6b7280)' }}
+                tick={{
+                  fontSize: chartFontSize.axisTick,
+                  fill: 'var(--chart-text, var(--color-gray-500))',
+                }}
                 tickLine={false}
-                axisLine={{ stroke: 'var(--chart-axis, #d1d5db)' }}
+                axisLine={{ stroke: 'var(--chart-axis, var(--color-gray-300))' }}
                 tickFormatter={(value) => value.toFixed(1)}
               />
               <Tooltip
                 contentStyle={{
                   backgroundColor: 'var(--tooltip-bg, #fff)',
-                  border: '1px solid var(--tooltip-border, #e5e7eb)',
+                  border: '1px solid var(--tooltip-border, var(--color-gray-200))',
                   borderRadius: '8px',
                   fontSize: chartFontSize.tooltip,
                 }}
@@ -127,17 +133,22 @@ export function LearningCurve({ data }: LearningCurveProps) {
               {/* Reference line for current average */}
               <ReferenceLine
                 y={currentAvg}
-                stroke="#3b82f6"
+                stroke="var(--color-blue-500)"
                 strokeDasharray="5 5"
                 label={{
                   value: `Avg: ${currentAvg.toFixed(2)}`,
                   position: 'right',
-                  fill: '#3b82f6',
+                  fill: 'var(--color-blue-500)',
                   fontSize: chartFontSize.annotation,
                 }}
               />
 
-              <Bar dataKey="reeditRate" name="Re-edit Rate" radius={[4, 4, 0, 0]} fill="#22c55e" />
+              <Bar
+                dataKey="reeditRate"
+                name="Re-edit Rate"
+                radius={[4, 4, 0, 0]}
+                fill="var(--color-green-500)"
+              />
             </BarChart>
           </ResponsiveContainer>
         )}

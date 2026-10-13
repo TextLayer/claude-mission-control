@@ -120,14 +120,14 @@ export function ActivitySparkline({ timeAfter, timeBefore }: ActivitySparklinePr
           <AreaChart data={chartData} margin={{ top: 8, right: 12, bottom: 0, left: 0 }}>
             <defs>
               <linearGradient id="sparkGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#10b981" stopOpacity={0.35} />
-                <stop offset="100%" stopColor="#10b981" stopOpacity={0.02} />
+                <stop offset="0%" stopColor="var(--color-emerald-500)" stopOpacity={0.35} />
+                <stop offset="100%" stopColor="var(--color-emerald-500)" stopOpacity={0.02} />
               </linearGradient>
             </defs>
 
             <CartesianGrid
               strokeDasharray="3 3"
-              stroke={isDark ? '#374151' : '#f0f0f0'}
+              stroke={isDark ? 'var(--color-gray-700)' : 'var(--color-gray-100)'}
               vertical={false}
             />
 
@@ -137,16 +137,19 @@ export function ActivitySparkline({ timeAfter, timeBefore }: ActivitySparklinePr
               domain={['dataMin', 'dataMax']}
               ticks={xTicks}
               tickFormatter={formatXTick}
-              tick={{ fontSize: chartFontSize.axisTick, fill: '#9ca3af' }}
-              axisLine={{ stroke: isDark ? '#4b5563' : '#e5e7eb' }}
-              tickLine={{ stroke: isDark ? '#4b5563' : '#e5e7eb', strokeWidth: 1 }}
+              tick={{ fontSize: chartFontSize.axisTick, fill: 'var(--color-gray-400)' }}
+              axisLine={{ stroke: isDark ? 'var(--color-gray-600)' : 'var(--color-gray-200)' }}
+              tickLine={{
+                stroke: isDark ? 'var(--color-gray-600)' : 'var(--color-gray-200)',
+                strokeWidth: 1,
+              }}
               tickMargin={6}
             />
 
             <YAxis
               domain={yDomain}
               ticks={yTicks}
-              tick={{ fontSize: chartFontSize.axisTick, fill: '#9ca3af' }}
+              tick={{ fontSize: chartFontSize.axisTick, fill: 'var(--color-gray-400)' }}
               axisLine={false}
               tickLine={false}
               tickMargin={4}
@@ -156,13 +159,16 @@ export function ActivitySparkline({ timeAfter, timeBefore }: ActivitySparklinePr
 
             <Tooltip
               content={<CustomTooltip />}
-              cursor={{ stroke: isDark ? '#6b7280' : '#d1d5db', strokeDasharray: '3 3' }}
+              cursor={{
+                stroke: isDark ? 'var(--color-gray-500)' : 'var(--color-gray-300)',
+                strokeDasharray: '3 3',
+              }}
             />
 
             <Area
               type="monotone"
               dataKey="count"
-              stroke="#10b981"
+              stroke="var(--color-emerald-500)"
               strokeWidth={2}
               fill="url(#sparkGrad)"
               dot={false}

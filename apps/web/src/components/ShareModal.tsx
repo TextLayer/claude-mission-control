@@ -69,7 +69,7 @@ export function ShareModal({ sessionId, messages, projectName }: ShareModalProps
   }, [isOpen]) // biome-ignore lint/correctness/useExhaustiveDependencies: intentional — only re-trigger on modal open
 
   const shareMessage = shareUrl
-    ? `Check out my Claude session about "${sessionTitle}":\n${shareUrl}\n\nShared via claude-view`
+    ? `Check out my Claude session about "${sessionTitle}":\n${shareUrl}\n\nShared via TextLayer Mission Control`
     : ''
 
   const copyLink = async () => {

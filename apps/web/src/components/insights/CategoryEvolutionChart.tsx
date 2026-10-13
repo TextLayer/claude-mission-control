@@ -27,9 +27,9 @@ interface CategoryEvolutionChartProps {
 // ============================================================================
 
 const CATEGORY_COLORS = {
-  codeWork: '#3B82F6',
-  supportWork: '#F59E0B',
-  thinkingWork: '#8B5CF6',
+  codeWork: 'var(--color-blue-500)',
+  supportWork: 'var(--color-amber-500)',
+  thinkingWork: 'var(--color-violet-500)',
 } as const
 
 const CATEGORY_LABELS: Record<string, string> = {
@@ -134,17 +134,17 @@ export function CategoryEvolutionChart({
 
       <ResponsiveContainer width="100%" height={300}>
         <AreaChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#374151" opacity={0.2} />
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--color-gray-700)" opacity={0.2} />
           <XAxis
             dataKey="date"
             tickFormatter={formatDateLabel}
-            stroke="#9CA3AF"
+            stroke="var(--color-gray-400)"
             fontSize={chartFontSize.axisTick}
             tickLine={false}
           />
           <YAxis
             tickFormatter={(value) => `${(value * 100).toFixed(0)}%`}
-            stroke="#9CA3AF"
+            stroke="var(--color-gray-400)"
             fontSize={chartFontSize.axisTick}
             tickLine={false}
             domain={[0, 1]}
@@ -160,14 +160,14 @@ export function CategoryEvolutionChart({
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             labelFormatter={formatDateTooltip as any}
             contentStyle={{
-              backgroundColor: '#1F2937',
+              backgroundColor: 'var(--color-gray-800)',
               border: 'none',
               borderRadius: '8px',
-              color: '#F9FAFB',
+              color: 'var(--color-gray-50)',
               fontSize: chartFontSize.tooltip,
             }}
-            itemStyle={{ color: '#F9FAFB' }}
-            labelStyle={{ color: '#9CA3AF', marginBottom: '4px' }}
+            itemStyle={{ color: 'var(--color-gray-50)' }}
+            labelStyle={{ color: 'var(--color-gray-400)', marginBottom: '4px' }}
           />
           <Area
             type="monotone"

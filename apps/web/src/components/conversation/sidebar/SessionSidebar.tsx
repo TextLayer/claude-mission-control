@@ -9,7 +9,6 @@ import { TOAST_DURATION } from '../../../lib/notify'
 import { toSidebarItems } from '../../../lib/sidebar-mapper'
 import { useAppStore } from '../../../store/app-store'
 import type { SessionInfo } from '../../../types/generated/SessionInfo'
-import { NewSessionDropdown } from './NewSessionDropdown'
 import { SessionListItem } from './SessionListItem'
 import { groupByUrgency } from './session-list-helpers'
 
@@ -17,10 +16,6 @@ const SIDEBAR_PAGE_SIZE = 30
 
 interface SessionSidebarProps {
   liveSessions: LiveSession[]
-  /** Called when user clicks "New Chat" — opens a blank tab directly in the dock. */
-  onNewChat?: () => void
-  /** Called with the new session UUID after CLI creation succeeds. */
-  onCliSessionCreated?: (sessionId: string) => void
 }
 
 function groupByTime(sessions: SessionInfo[], now: number) {
@@ -49,11 +44,7 @@ function groupByTime(sessions: SessionInfo[], now: number) {
   return groups.filter((g) => g.sessions.length > 0)
 }
 
-export function SessionSidebar({
-  liveSessions,
-  onNewChat,
-  onCliSessionCreated,
-}: SessionSidebarProps) {
+export function SessionSidebar({ liveSessions }: SessionSidebarProps) {
   const navigate = useNavigate()
   const { sessionId: currentSessionId } = useParams<{ sessionId?: string }>()
   const { resumeSession, deleteSession, forkSession } = useSessionMutations()
@@ -140,13 +131,6 @@ export function SessionSidebar({
     },
     [navigate],
   )
-  const handleNewChat = useCallback(() => {
-    if (onNewChat) {
-      onNewChat()
-    } else {
-      navigate('/chat')
-    }
-  }, [onNewChat, navigate])
 
   const handleResume = useCallback(
     async (sessionId: string) => {
@@ -218,7 +202,6 @@ export function SessionSidebar({
       {/* Header */}
       <div className="flex items-center justify-between px-3 py-3 border-b border-gray-200 dark:border-gray-800">
         <span className="text-sm font-semibold text-gray-700 dark:text-gray-200">Chats</span>
-        <NewSessionDropdown onNewChat={handleNewChat} onCliSessionCreated={onCliSessionCreated} />
       </div>
 
       {/* Search */}
@@ -367,7 +350,7 @@ export function SessionSidebar({
 
             {!loading && enrichedHistory.length === 0 && (
               <div className="px-3 py-8 text-center text-sm text-gray-400">
-                No sessions yet. Start a new chat!
+                No sessions yet. Sessions you start in Claude Code appear here.
               </div>
             )}
           </>

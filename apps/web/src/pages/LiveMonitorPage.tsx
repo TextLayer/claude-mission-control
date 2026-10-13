@@ -2,7 +2,6 @@ import type { DockviewApi } from 'dockview-react'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate, useOutletContext, useSearchParams } from 'react-router-dom'
 import { LiveMonitorSkeleton } from '../components/LoadingStates'
-import { NewCliSessionButton } from '../components/cli-terminal'
 import { CostTokenPopover } from '../components/live/CostTokenPopover'
 import { HarnessKanbanView } from '../components/live/HarnessKanbanView'
 import { KanbanView } from '../components/live/KanbanView'
@@ -274,17 +273,6 @@ export function LiveMonitorPage() {
     [searchParams, setSearchParams],
   )
 
-  // CLI session creation — switch to monitor view; the session will appear
-  // via SSE → DockLayout sync when the Claude process starts.
-  const handleCliSessionCreated = useCallback(
-    (_sessionId: string) => {
-      if (viewMode !== 'monitor') {
-        handleViewModeChange('monitor')
-      }
-    },
-    [viewMode, handleViewModeChange],
-  )
-
   // Session selection
   const handleSelectSession = useCallback((id: string) => {
     setSelectedId((prev) => (prev === id ? null : id))
@@ -391,7 +379,8 @@ export function LiveMonitorPage() {
           {/* Row 1: Command bar — title, view tabs, stats, status */}
           <div className="flex items-center gap-3">
             {/* Left: status dot + title + view tabs + session counts */}
-            <div className="flex items-center gap-3 min-w-0">
+            {/* overflow-hidden: on narrow panes the counts used to spill under the right-hand group */}
+            <div className="flex items-center gap-3 min-w-0 overflow-hidden">
               <div className="flex items-center gap-2">
                 <span
                   className={`inline-block h-2 w-2 rounded-full shrink-0 ${isConnected ? 'bg-green-500' : 'bg-red-500 animate-pulse'}`}
@@ -428,9 +417,8 @@ export function LiveMonitorPage() {
               )}
             </div>
 
-            {/* Right: CLI session, cost, tokens, stale indicator, usage — stays right-aligned */}
+            {/* Right: cost, tokens, stale indicator, usage — stays right-aligned */}
             <div className="flex items-center gap-3 ml-auto text-xs shrink-0">
-              <NewCliSessionButton onSessionCreated={handleCliSessionCreated} />
               {isStale && lastUpdateTs > 0 && (
                 <span className="text-amber-500/80 tabular-nums">
                   {formatRelativeTime(lastUpdateTs)}

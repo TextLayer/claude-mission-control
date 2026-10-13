@@ -41,7 +41,7 @@ export function CategoryPerformanceTable({
     return {
       width: `${width}%`,
       marginLeft: isBetter ? `${50 - width}%` : '50%',
-      backgroundColor: isBetter ? '#22c55e' : '#f59e0b',
+      backgroundColor: isBetter ? 'var(--color-green-500)' : 'var(--color-amber-500)',
     }
   }
 

@@ -1,7 +1,7 @@
 //! Early-exit dispatch for the `cleanup` subcommand.
 //!
 //! Extracted from `main.rs` in CQRS Phase 7.f. Runs before any async / DB
-//! work so `claude-view cleanup` is a fast synchronous operation.
+//! work so `mission-control cleanup` is a fast synchronous operation.
 
 use crate::cli;
 
@@ -12,7 +12,7 @@ pub fn handle_cleanup_if_requested(cli_parsed: &cli::Cli) {
         return;
     };
 
-    eprintln!("\n\u{1f9f9} claude-view cleanup\n");
+    eprintln!("\n\u{1f9f9} mission-control cleanup\n");
     let mut actions = Vec::new();
 
     // 1. Remove hooks from ~/.claude/settings.json (also removes .tmp)

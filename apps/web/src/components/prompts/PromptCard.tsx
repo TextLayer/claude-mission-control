@@ -89,7 +89,7 @@ export function PromptCard({ prompt }: PromptCardProps) {
       {/* Secondary info row: branch, model, paste indicator */}
       <div className="mt-2 flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
         {prompt.branch && (
-          <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 font-mono bg-violet-50 dark:bg-violet-950/50 border border-violet-200 dark:border-violet-800 text-violet-700 dark:text-violet-300 rounded">
+          <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 font-mono bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800 text-blue-600 dark:text-blue-400 rounded">
             <GitBranch className="w-2.5 h-2.5 shrink-0" />
             {prompt.branch}
           </span>

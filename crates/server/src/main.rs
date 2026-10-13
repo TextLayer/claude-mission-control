@@ -41,7 +41,10 @@ async fn main() -> Result<()> {
     let startup_start = Instant::now();
     platform::ensure_supported();
     init_metrics();
-    eprintln!("\n\u{1f50d} claude-view v{}\n", env!("CARGO_PKG_VERSION"));
+    eprintln!(
+        "\n\u{1f50d} TextLayer Mission Control v{}\n",
+        env!("CARGO_PKG_VERSION")
+    );
     data_dir::validate_and_cleanup_legacy();
 
     let handles = bootstrap::bootstrap(app_config, startup_start).await?;

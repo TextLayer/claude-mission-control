@@ -157,7 +157,7 @@ function GroupedSidebarCards({
               {group.branch && (
                 <>
                   <span className="text-gray-300 dark:text-gray-600">/</span>
-                  <GitBranch className="w-3 h-3 shrink-0 text-violet-500 dark:text-violet-400" />
+                  <GitBranch className="w-3 h-3 shrink-0 text-blue-500 dark:text-blue-400" />
                   <span className="text-xs text-gray-500 dark:text-gray-500 truncate">
                     {group.branch}
                   </span>

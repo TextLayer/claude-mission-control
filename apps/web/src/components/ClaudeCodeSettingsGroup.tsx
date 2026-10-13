@@ -158,7 +158,7 @@ function HooksSection({ settings }: { settings: ClaudeCodeSettings }) {
             <ChevronRight
               className={cn('w-3 h-3 transition-transform duration-200', showSystem && 'rotate-90')}
             />
-            claude-view monitors {settings.systemHookCount} events
+            Mission Control monitors {settings.systemHookCount} events
           </button>
           {showSystem && (
             <div className="mt-2 space-y-1.5 ml-5">

@@ -37,7 +37,7 @@ describe('TabBarActions', () => {
     expect(screen.getByRole('button')).toBeInTheDocument()
   })
 
-  it('split right creates panel with title "New Chat" and empty sessionId', async () => {
+  it('split right opens the active session in a second pane', async () => {
     const user = userEvent.setup()
     const props = makeMockProps()
 
@@ -56,10 +56,9 @@ describe('TabBarActions', () => {
 
     // Panel ID is a unique string — assert it exists, don't parse its prefix
     expect(typeof args.id).toBe('string')
-    // Title must be "New Chat", not a timestamp
-    expect(args.title).toBe('New Chat')
-    // Params should have empty sessionId (blank panel)
-    expect(args.params).toEqual({ sessionId: '' })
+    // Same session and title as the active panel — never a blank "New Chat" pane
+    expect(args.title).toBe('Test Panel')
+    expect(args.params).toEqual({ sessionId: 'sess-123', ownership: null })
     // Position should reference the active panel, direction right
     expect(args.position.direction).toBe('right')
   })
@@ -79,6 +78,22 @@ describe('TabBarActions', () => {
     expect(addPanel).toHaveBeenCalledTimes(1)
     const args = addPanel.mock.calls[0][0]
     expect(args.position.direction).toBe('below')
+  })
+
+  it('does not split a panel that has no session', async () => {
+    const user = userEvent.setup()
+    const props = makeMockProps({
+      // biome-ignore lint/suspicious/noExplicitAny: test stub — mocking dockview internals
+      activePanel: { id: 'panel-1', title: 'Empty', params: { sessionId: '' } } as any,
+    })
+    render(<TabBarActions {...props} />)
+
+    await user.click(screen.getByRole('button'))
+    await user.click(await screen.findByText('Split Right'))
+
+    // biome-ignore lint/suspicious/noExplicitAny: extract mock from dockview stub
+    const addPanel = (props.containerApi as any).addPanel as ReturnType<typeof vi.fn>
+    expect(addPanel).not.toHaveBeenCalled()
   })
 
   it('does nothing when activePanel is null', () => {
